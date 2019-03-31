@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 // import Dashboard from 'coreui-react-starter/React_Full_Project/src/containers/Full';
+import Graph from './components/Graph';
 
 class App extends Component {
   render() {
@@ -64,6 +65,9 @@ class App extends Component {
               Learn more
             </a>
           </p>
+        </div>
+        <div className="container center">
+          <Graph />
         </div>
       </div>
     );
