@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "binary-charts": "^9.2.7",
     "coreui-react-starter": "^1.0.0-alpha.5",
     "npm": "^6.8.0",
     "react": "^16.7.0",
