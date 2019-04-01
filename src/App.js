@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 // import Dashboard from 'coreui-react-starter/React_Full_Project/src/containers/Full';
-import Graph from './components/Graph';
+import Dashboard from './containers/Dashboard/Dashboard';
+// import Graph from './components/Graph';
 
 class App extends Component {
   render() {
@@ -49,25 +50,9 @@ class App extends Component {
             </ul>
           </div>
         </nav>
-        <div className="jumbotron">
-          <h1 className="display-3">Hello, world!</h1>
-          <p className="lead">
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
-          </p>
-          <hr className="my-4" />
-          <p>
-            It uses utility classes for typography and spacing to space content
-            out within the larger container.
-          </p>
-          <p className="lead">
-            <a className="btn btn-primary btn-lg" href="/" role="button">
-              Learn more
-            </a>
-          </p>
-        </div>
-        <div className="container center">
-          <Graph />
+        <div className="center">
+          {/* <Graph /> */}
+          <Dashboard />
         </div>
       </div>
     );
