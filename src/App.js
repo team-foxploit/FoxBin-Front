@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
-// import Dashboard from 'coreui-react-starter/React_Full_Project/src/containers/Full';
 import Dashboard from './containers/Dashboard/Dashboard';
-// import Graph from './components/Graph';
 import Graph from './containers/Dashboard/Graph/Graph';
-// import BinaryChart from './components/BinaryChart';
 
 class App extends Component {
   render() {
-  //   const ticks = [
-  //     { epoch: 123, quote: 95.4 },
-  //     { epoch: 124, quote: 95.3 },
-  //     { epoch: 125, quote: 95.6 }
-  // ];
     return (
       <div className="App">
         {/* <Dashboard /> */}
@@ -58,8 +50,8 @@ class App extends Component {
           </div>
         </nav>
         <div className="center">
-          <Graph />
           <Dashboard />
+          <Graph />
           {/* <BinaryChart ticks={ticks}/> */}
         </div>
       </div>
