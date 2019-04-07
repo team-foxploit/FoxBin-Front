@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Dashboard from './containers/Dashboard/Dashboard';
-import Graph from './containers/Dashboard/Graph/Graph';
+// import Dashboard from "./containers/Dashboard/Dashboard";
+import Graph from "./components/Graph";
 
 class App extends Component {
   render() {
@@ -49,11 +49,10 @@ class App extends Component {
             </ul>
           </div>
         </nav>
-        <div className="center">
+        {/* <div className="center">
           <Dashboard />
-          <Graph />
-          {/* <BinaryChart ticks={ticks}/> */}
-        </div>
+        </div> */}
+        <Graph />
       </div>
     );
   }
