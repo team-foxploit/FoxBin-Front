@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "coreui-react-starter": "^1.0.0-alpha.5",
     "fusioncharts": "^3.13.4",
     "npm": "^6.8.0",
