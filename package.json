@@ -7,10 +7,12 @@
     "coreui-react-starter": "^1.0.0-alpha.5",
     "fusioncharts": "^3.13.4",
     "npm": "^6.8.0",
+    "plotly.js": "^1.46.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-fusioncharts": "^3.0.0",
     "react-google-charts": "^3.0.11",
+    "react-plotly.js": "^2.3.0",
     "react-scripts": "^2.1.8",
     "recharts": "^1.5.0",
     "serve": "^10.1.1"

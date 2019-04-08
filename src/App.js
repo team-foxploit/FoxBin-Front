@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 // import Dashboard from "./containers/Dashboard/Dashboard";
-import Graph from "./components/Graph";
+// import Graph from "./components/Graph";
+import Plot from './containers/Dashboard/Plot/Plot';
 
 class App extends Component {
   render() {
@@ -52,7 +53,8 @@ class App extends Component {
         {/* <div className="center">
           <Dashboard />
         </div> */}
-        <Graph />
+        {/* <Graph /> */}
+        <Plot />
       </div>
     );
   }
