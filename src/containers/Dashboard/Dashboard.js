@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "./Form/Form";
 import BusinessChatImg from '../../assets/business-chart.jpg';
+import style from './Dashboard.module.css';
 
 class Dashboard extends Component {
   state = {
@@ -50,22 +51,24 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="jumbotron">
-          <h1 className="display-3">Welcome!</h1>
-          <p className="lead">
-            Welcome to the Automated Trading Platform where you can trade Binary
-            Options based on our predictions.
-          </p>
-          <hr className="my-4" />
-          <div className="row no-gutters justify-content-md-center">
-            <div className="col-md-4">
-              <img src={BusinessChatImg} alt="business-chart"/>
-            </div>
-            <div className="card">
-              <div className="card-body col-md-10" />
-                {this.state.asset_index && this.state.active_symbols ? (
-                  <Form data={this.state} />
-                ) : null}
+        <div className={style.JumbotronMargin}>
+          <div className="jumbotron">
+            <h1 className="display-3">FoxBinary</h1>
+            <p className="lead">
+              Welcome to the Automated Trading Platform where you can trade Binary
+              Options based on our predictions.
+            </p>
+            <hr className="my-4" />
+            <div className="row no-gutters justify-content-md-center">
+              <div className="col-md-4">
+                <img src={BusinessChatImg} alt="business-chart"/>
+              </div>
+              <div className="card">
+                <div className="card-body col-md-10" />
+                  {this.state.asset_index && this.state.active_symbols ? (
+                    <Form data={this.state} />
+                  ) : null}
+              </div>
             </div>
           </div>
         </div>
