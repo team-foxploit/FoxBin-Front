@@ -1,47 +1,66 @@
-import React, { Component } from 'react';
-import './App.css';
-// import Dashboard from 'coreui-react-starter/React_Full_Project/src/containers/Full';
+import React, { Component } from "react";
+import style from "./App.module.css";
+import Dashboard from "./containers/Dashboard/Dashboard";
+// import Graph from "./components/Graph";
+import Navbar from './components/Navbar/Navbar';
+import Plot from './containers/Dashboard/Plot/Plot';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        {/* <Dashboard /> */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a className="navbar-brand" href="/">Navbar</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarColor01">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">Features</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">Pricing</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">About</a>
-              </li>
-            </ul>
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-              <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+      <div className={style.App}>
+        <Navbar />
+        <Dashboard />
+        <div className="container-fluid">
+          <div className={style.CardMargin}>
+            <div className="row justify-content-md-center">
+              <div className="col-md-8">
+                <div className="card text-white bg-info">
+                  <div className="card-header">FoxBinary Trading</div>
+                  <div className="card-body">
+                    <h5 className="card-title">You can trade once after authenticated using binary.com credentials</h5>
+                    <p className="card-text">
+                      You can manually trade based on your decision although we give the best decision using our predition system.
+                      So, we strongly recommend you our prediction system.  
+                    </p>
+                    {/* <div className="dropdown">
+                      <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Descicion
+                      </button>
+                      <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button className="dropdown-item" type="button">Rise</button>
+                        <button className="dropdown-item" type="button">Fall</button>
+                      </div>
+                    </div> */}
+                    <button className="btn btn-primary" type="button" disabled>
+                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </nav>
-        <div className="jumbotron">
-          <h1 className="display-3">Hello, world!</h1>
-          <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-          <hr className="my-4" />
-          <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-          <p className="lead">
-            <a className="btn btn-primary btn-lg" href="/" role="button">Learn more</a>
-          </p>
+          <div className="row">
+            <div className="col-md-9">
+              <Plot asset="EUR/USD" />
+            </div>
+            <div className="col-md-3">
+              <div className="card text-white bg-dark">
+                <div className="card-header">FoxBinary Prediction</div>
+                <div className="card-body">
+                  <h5 className="card-title">Please wait...</h5>
+                  <p className="card-text">
+                    You can check whether it's the right time to bid or not based on the following result.
+                    Result might take few seconds since, we'll give the best option from our ML prediction just for you...</p>
+                  <button className="btn btn-primary" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
