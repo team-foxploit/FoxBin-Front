@@ -52,7 +52,7 @@ class PlotApp extends Component {
       var prevData = this.state.data[0];
       var prevLayout = this.state.layout;
       if (value.msg_type === "history") {
-        console.log("his");
+        console.log(value);
         console.log(value.history.prices, value.history.times);
         for (let i = 0; i < this.state.count; i++) {
           prevData.x.push(getFormattedTime(value.history.times[i]));
@@ -72,7 +72,7 @@ class PlotApp extends Component {
           }
         );
       } else if (value.msg_type === "tick") {
-        console.log("now");
+        console.log(value);
         prevData.x.push(getFormattedTime(value.tick.epoch));
         prevData.y.push(value.tick.quote);
         this.setState(
