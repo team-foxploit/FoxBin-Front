@@ -6,6 +6,7 @@ class PlotApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      asset: "EUR/USD",
       data: [
         {
           x: [],
@@ -20,7 +21,7 @@ class PlotApp extends Component {
       layout: {
         width: 800,
         height: 600,
-        title: "Trading values for USD/AUD",
+        title: "Forex chart : EUR/USD",
         datarevision: 0
       },
       frames: [],
@@ -31,7 +32,7 @@ class PlotApp extends Component {
 
   componentDidMount() {
     const subscribe = {
-      ticks_history: "R_50",
+      ticks_history: "frxEURUSD",
       end: "latest",
       start: 1,
       style: "ticks",
@@ -97,6 +98,7 @@ class PlotApp extends Component {
         data={this.state.data}
         layout={this.state.layout}
         revision={this.state.revision}
+        useResizeHandler={true}
       />
     );
   }
