@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import style from "./App.module.css";
 import Dashboard from "./containers/Dashboard/Dashboard";
 // import Graph from "./components/Graph";
@@ -6,7 +7,17 @@ import Navbar from './components/Navbar/Navbar';
 import Plot from './containers/Dashboard/Plot/Plot';
 
 class App extends Component {
+
+  handleClick = () => {
+    console.log("clicked");
+    
+    return (
+      <Redirect to="https://oauth.binary.com/oauth2/authorize?app_id=16334" />
+    )
+  }
+
   render() {
+    console.log(this.props);  
     return (
       <div className={style.App}>
         <Navbar />
@@ -32,9 +43,10 @@ class App extends Component {
                         <button className="dropdown-item" type="button">Fall</button>
                       </div>
                     </div> */}
-                    <button className="btn btn-primary" type="button" disabled>
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Loading...
+                    <button className="btn btn-primary" type="button" onClick={this.handleClick} >
+                      {/* <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Loading... */}
+                      Login
                     </button>
                   </div>
                 </div>
