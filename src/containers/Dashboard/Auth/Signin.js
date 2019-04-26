@@ -11,7 +11,7 @@ class Signin extends Component {
           style={{ padding: "0" }}
         >
           <div className="row no-gutters">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <img
                 src={BusinessChatImg}
                 className="card-img"
@@ -19,50 +19,55 @@ class Signin extends Component {
                 style={{ height: "100%" }}
               />
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <div className="card-body">
-                <div className="col">
-                  <h5 className="card-title">
-                    Login to trade on Binary.com platform
-                  </h5>
-                  <label htmlFor="signInEmail">Username</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="signInEmail"
-                    aria-describedby="emailHelp"
-                    placeholder="Email address"
-                  />
-                  <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
-                  </small>
-                </div>
-                <div className="col">
-                  <label htmlFor="signInPassword">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="signInPassword"
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="col">
-                  <div className="form-group form-check">
+                <h5 className="card-title">
+                  Login to trade on Binary.com platform
+                </h5>
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="signInEmail">Username</label>
                     <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="rememberCheck"
+                      type="email"
+                      className="form-control"
+                      id="signInEmail"
+                      aria-describedby="emailHelp"
+                      placeholder="Email address"
                     />
-                    <label className="form-check-label" htmlFor="rememberCheck">
-                      Remember me
-                    </label>
+                    <small id="emailHelp" className="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </small>
                   </div>
-                </div>
-                <div className="col">
-                  <button type="submit" className="btn btn-primary">
-                    SIGN IN
-                  </button>
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="signInPassword">Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="signInPassword"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <div className="form-group form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="rememberCheck"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="rememberCheck"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <button type="submit" className="btn btn-primary">
+                      SIGN IN
+                    </button>
+                  </div>
+                </form>
                 <div className="col">
                   <small className="card-text">
                     If you do not have an account, please{" "}
