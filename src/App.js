@@ -54,9 +54,9 @@ class App extends Component {
                   {/* Add className="main-content" for each component's first child element */}
                   <Switch>
                     {/* <Route exact path="/" component={Home} /> */}
-                    <Route exact path="/" component={Dashboard} />
-                    <Route exact path="/signin" component={Signin} />
-                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/dashboard" component={Dashboard} />
+                    <Route path="/signin" component={Signin} />
+                    <Route path="/register" component={Register} />
                   </Switch>
                   {/* <Dashboard /> */}
                 </main>

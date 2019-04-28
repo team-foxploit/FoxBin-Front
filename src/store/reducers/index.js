@@ -7,5 +7,6 @@ import blog from './blog';
 export default combineReducers({
     blogReducer: blog,
     errorReducer: error,
-    messageReducer: message
+    messageReducer: message,
+    authReducer: auth
 });

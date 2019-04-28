@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import { withRouter, Switch, Route } from "react-router-dom";
-import propTypes from 'prop-types';
+import { Switch, Route } from "react-router-dom";
+import propTypes from "prop-types";
 
-import { connect } from 'react-redux'
-import { getBlogs } from '../../store/actions/blogActions';
-import { createMessage } from '../../store/actions/messageActions';
+import { connect } from "react-redux";
+import { getBlogs } from "../../store/actions/blogActions";
+import { createMessage } from "../../store/actions/messageActions";
 // import { GET_BLOGS } from '../../store/actions/actionTypes';
 // import style from "./Dashboard.module.css";
 import Sidebar from "./Sidebar/BSidebar";
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import Account from './Account/Account';
-
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import Account from "./Account/Account";
 
 class Dashboard extends Component {
   state = {
@@ -19,11 +18,10 @@ class Dashboard extends Component {
     url_slug: []
   };
 
-
   static propTypes = {
     posts: propTypes.array.isRequired,
     getBlogs: propTypes.func.isRequired
-  }
+  };
 
   componentDidMount() {
     console.log(this.props);
@@ -97,49 +95,47 @@ class Dashboard extends Component {
     // </div> */}
     // {/* <div className="container-fluid"> */}
     return (
-        <div className="wrapper">
-          <Sidebar />
-          <div className="container-fluid" id="content">
-            <main role="main">
-              <div className="col d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                {/* <Breadcrumb /> */}
-                <div className="row">
-                  <button
-                    type="button"
-                    id="sidebarCollapse"
-                    class="btn btn-sm btn-info"
-                  >
-                    <i className="material-icons">chevron_left</i>
-                  </button>
-                </div>
+      <div className="wrapper">
+        <Sidebar />
+        <div className="container-fluid" id="content">
+          <main role="main">
+            <div className="col d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              {/* <Breadcrumb /> */}
+              <div className="row">
+                <button
+                  type="button"
+                  id="sidebarCollapse"
+                  className="btn btn-sm btn-info"
+                >
+                  <i className="material-icons">chevron_left</i>
+                </button>
               </div>
-              {/* <Switch>
-                {/* <Route exact path="/" component={Signin}/> */}
-                {/* <Route path="/dashboard/account" component={Account}/> */}
-                {/* <Route path="/about" component={About}/>
-                <Route path="/:user" component={User}/>
-                <Route component={NoMatch}/> */}
-              {/* </Switch> */}
-              {/* <Dashboard /> */}
-              </main>
-          </div>
-          {/* </div> */}
+            </div>
+            <Switch>
+              <Route path="/dashboard/account" component={Account} />
+            </Switch>
+          </main>
         </div>
+        {/* </div> */}
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     posts: state.blogReducer.posts
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getBlogs: getBlogs,
-    createMessage: (msg) => dispatch(createMessage(msg))
-  }
-}
+    createMessage: msg => dispatch(createMessage(msg))
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);
