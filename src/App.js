@@ -1,28 +1,68 @@
+// React
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+// React-alert
+import { transitions, positions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+// Redux strore
+import { Provider } from "react-redux";
+import store from "./store/store";
+
+// Styles
 import style from "./App.module.css";
+import "./App.global.css";
+
+// Components
+import Alert from "./components/Alert/Alert";
+import ProtectedRoute from "./hoc/ProtectedRoute";
 import Dashboard from "./containers/Dashboard/Dashboard";
+import Navbar from "./components/Navbar/Navbar";
+import Signin from "./containers/Dashboard/Auth/Signin";
+import Register from "./containers/Dashboard/Auth/Register";
+// import Plot from "./containers/Dashboard/Plot/Plot";
 // import Graph from "./components/Graph";
-import Navbar from './components/Navbar/Navbar';
-import Plot from './containers/Dashboard/Plot/Plot';
+
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.TOP_RIGHT,
+  timeout: 5000,
+  offset: '90px',
+  // you can also just use 'scale'
+  transition: transitions.SCALE
+};
 
 class App extends Component {
-
-  handleClick = () => {
-    console.log("clicked");
-    
-    return (
-      <Redirect to="https://oauth.binary.com/oauth2/authorize?app_id=16334" />
-    )
-  }
-
   render() {
-    console.log(this.props);  
+    // console.log(window.location.href.split("=")[2]);
+    const token = window.location.href.split("=")[2];
+    if (token) {
+      // Action
+      console.log(token);
+    }
     return (
-      <div className={style.App}>
-        <Navbar />
-        <Dashboard />
-        <div className="container-fluid">
+      <Provider store={store}>
+        <AlertProvider template={AlertTemplate} {...options}>
+          {/* <Signin /> */}
+          <Alert />
+          <div className={style.App}>
+            <BrowserRouter>
+              <Navbar />
+              <div className="container-fluid" id="content">
+                <main role="main">
+                  {/* Add className="main-content" for each component's first child element */}
+                  <Switch>
+                    {/* <Route exact path="/" component={Home} /> */}
+                    <Route exact path="/" component={Dashboard} />
+                    <Route exact path="/signin" component={Signin} />
+                    <Route exact path="/register" component={Register} />
+                  </Switch>
+                  {/* <Dashboard /> */}
+                </main>
+              </div>
+            </BrowserRouter>
+            {/* <div className="container-fluid">
           <div className={style.CardMargin}>
             <div className="row justify-content-md-center">
               <div className="col-md-8">
@@ -33,8 +73,8 @@ class App extends Component {
                     <p className="card-text">
                       You can manually trade based on your decision although we give the best decision using our predition system.
                       So, we strongly recommend you our prediction system.  
-                    </p>
-                    {/* <div className="dropdown">
+                    </p> */}
+            {/* <div className="dropdown">
                       <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Descicion
                       </button>
@@ -43,10 +83,10 @@ class App extends Component {
                         <button className="dropdown-item" type="button">Fall</button>
                       </div>
                     </div> */}
-                    <button className="btn btn-primary" type="button" onClick={this.handleClick} >
-                      {/* <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {/* <button className="btn btn-primary" type="button" onClick={this.handleClick} > */}
+            {/* <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       Loading... */}
-                      Login
+            {/* <a href="https://oauth.binary.com/oauth2/authorize?app_id=16334">Login</a>
                     </button>
                   </div>
                 </div>
@@ -73,8 +113,10 @@ class App extends Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> */}
+          </div>
+        </AlertProvider>
+      </Provider>
     );
   }
 }

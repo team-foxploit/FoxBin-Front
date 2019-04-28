@@ -1,0 +1,13 @@
+/*
+   * Content
+   */
+
+.main-content {
+  text-align: left;
+  margin: auto;
+}
+
+[role="main"] {
+  padding-top: 92px; /* Space for fixed navbar */
+  text-align: left;
+} 
