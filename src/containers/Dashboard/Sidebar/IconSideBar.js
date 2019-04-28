@@ -7,44 +7,46 @@ import "./Sidebar.css";
 const Sidebar = props => {
   return (
     <Fragment>
-      <div className="col-sm-1 col-1 col-md-2">
-        <nav className="sidebar" id="sidebar">
+      <div className="col-sm-12 col-12 col-md-2 d-none d-sm-block">
+        <nav className="sidebar" id="iconsidebar">
           <div className="sidebar-sticky">
             <ul className="nav flex-column">
               <li className="nav-item">
+                <button
+                  type="button"
+                  id="sidebarCollapse"
+                  className="btn btn-sm btn-outline-info"
+                >
+                  <i className="material-icons">chevron_left</i>
+                </button>
                 <NavLink className="nav-link" to="/dashboard">
                   <i className="material-icons">home</i>
-                  Home<span className="sr-only">(current)</span>
+                  <span className="sr-only">(current)</span>
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/history">
                   <i className="material-icons">history</i>
-                  History
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/predictions">
                   <i className="material-icons">swap_calls</i>
-                  Predictions
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/automata">
                   <i className="material-icons">border_vertical</i>
-                  Automation
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/integra">
                   <i className="material-icons">code</i>
-                  Integrations
                 </NavLink>
               </li>
             </ul>
 
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Account settings</span>
               <NavLink
                 className="d-flex align-items-center text-muted"
                 to="#"
@@ -54,19 +56,15 @@ const Sidebar = props => {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/account">
                   <i className="material-icons">account_circle</i>
-                  Account
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/login-his">
                   <i className="material-icons">visibility</i>
-                  Login history
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/logout">
-                  Logout
-                </NavLink>
+                <NavLink className="nav-link" to="/logout" />
               </li>
             </ul>
           </div>

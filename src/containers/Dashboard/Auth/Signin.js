@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import BusinessChatImg from "../../../assets/business-chart.jpg";
 
 class Signin extends Component {
+
   render() {
     return (
       <div style={{ marginTop: "12px" }}>
@@ -28,11 +30,11 @@ class Signin extends Component {
                   <div className="form-group">
                     <label htmlFor="signInEmail">Username</label>
                     <input
-                      type="email"
+                      type="input"
                       className="form-control"
                       id="signInEmail"
                       aria-describedby="emailHelp"
-                      placeholder="Email address"
+                      placeholder="Username"
                     />
                     <small id="emailHelp" className="form-text text-muted">
                       We'll never share your email with anyone else.

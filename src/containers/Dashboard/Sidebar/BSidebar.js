@@ -1,5 +1,4 @@
 import React from "react";
-import propTypes from "prop-types";
 import Fragment from "../../../hoc/Fragment";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
@@ -7,7 +6,6 @@ import "./Sidebar.css";
 const Sidebar = props => {
   return (
     <Fragment>
-      <div className="col-sm-1 col-1 col-md-2">
         <nav className="sidebar" id="sidebar">
           <div className="sidebar-sticky">
             <ul className="nav flex-column">
@@ -71,7 +69,6 @@ const Sidebar = props => {
             </ul>
           </div>
         </nav>
-      </div>
     </Fragment>
   );
 };
