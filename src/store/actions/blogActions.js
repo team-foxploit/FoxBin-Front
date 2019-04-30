@@ -21,7 +21,7 @@ export const getBlogs = () => dispatch=> {
                     status: err.response.status
                 }
                 dispatch({
-                    type: actionTypes.GET_ERRORS,
+                    type: actionTypes.SHOW_ERROR,
                     payload: errors
                 });
             } else {
@@ -30,7 +30,7 @@ export const getBlogs = () => dispatch=> {
                         status: 404
                     }
                     dispatch({
-                        type: actionTypes.GET_ERRORS,
+                        type: actionTypes.SHOW_ERROR,
                         payload: errors
                     });
             }
