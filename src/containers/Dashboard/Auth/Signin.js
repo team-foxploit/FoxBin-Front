@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 import { login } from '../../../store/actions/authActions';
 
@@ -13,6 +14,11 @@ class Signin extends Component {
       password: ""
     }
   };
+
+  static propTypes = {
+    login: propTypes.func.isRequired,
+    isAuthenticated: propTypes.bool.isRequired
+  }
 
   inputChangeHandler = e => {
     this.setState(
@@ -36,6 +42,13 @@ class Signin extends Component {
   };
 
   render() {
+
+    if(this.props.isAuthenticated){
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
+
     return (
       <div style={{ marginTop: "12px" }}>
         <div

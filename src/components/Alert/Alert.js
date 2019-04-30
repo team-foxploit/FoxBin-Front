@@ -7,10 +7,9 @@ class Alert extends Component {
     const { error, alert, message } = this.props;
     console.log(this.props);
     if (error !== prevProps.error) {
-      alert.error("Error!");
-      //   if(error.msg.tag){
-      //     this.props.alert.error("Tag is required!");
-      //   }
+      if (error.error.non_field_errors) {
+        this.props.alert.error(error.error.non_field_errors);
+      }
     }
 
     if (message !== prevProps.message) {

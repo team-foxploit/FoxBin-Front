@@ -8,7 +8,7 @@ export const login = (user) => (dispatch) => {
     dispatch({
         type: actionTypes.AUTH_START
     });
-    axios.post("https://foxbin-api.herokuapp.com/api/auth/login", user)
+    axios.post("http://localhost:8000/api/auth/login", user)
     .then((res) => {
         console.log(res);
         dispatch({
@@ -17,8 +17,16 @@ export const login = (user) => (dispatch) => {
         });
     })
     .catch((error) => {
+        const errors = {
+            msg: error.response.data,
+            status: error.response.status
+        }
         dispatch({
             type: actionTypes.AUTH_FAIL
-        })
+        });
+        dispatch({
+            type: actionTypes.GET_ERRORS,
+            payload: errors
+        });
     });
 }
