@@ -1,23 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 // CHECK isAuthenticated
 
-const ProtectedRoute = ({ component: Component, post, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        return <Component {...props} />;
-      }}
-    />
-  );
+const ProtectedRoute = ({
+  isAuthenticated,
+  component: Component,
+  post,
+  ...rest
+}) => {
+  if (!isAuthenticated) {
+    return <Redirect to="/signin" />;
+  } else {
+    return (
+      <Route
+        {...rest}
+        render={props => {
+          return <Component {...props} />;
+        }}
+      />
+    );
+  }
 };
+
+// ProtectedRoute.propTypes = {
+//   isAuthenticated: propTypes.bool.isRequired
+// }
 
 const mapStateToProps = state => {
   return {
-    posts: state.blog
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
