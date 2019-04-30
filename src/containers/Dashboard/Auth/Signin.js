@@ -1,9 +1,39 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+
+import { login } from '../../../store/actions/authActions';
 
 import BusinessChatImg from "../../../assets/business-chart.jpg";
 
 class Signin extends Component {
+  state = {
+    user: {
+      username: "",
+      password: ""
+    }
+  };
+
+  inputChangeHandler = e => {
+    this.setState(
+      {
+        ...this.state,
+        user: {
+          ...this.state.user,
+          [e.target.id]: e.target.value
+        }
+      },
+      () => {
+        console.log(this.state.user);
+      }
+    );
+  };
+
+  onSubmitHandler = e => {
+    e.preventDefault();
+    console.log(this.state.user);
+    this.props.login(this.state.user);
+  };
 
   render() {
     return (
@@ -26,27 +56,28 @@ class Signin extends Component {
                 <h5 className="card-title">
                   Login to trade on Binary.com platform
                 </h5>
-                <form>
+                <form onSubmit={this.onSubmitHandler}>
                   <div className="form-group">
-                    <label htmlFor="signInEmail">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input
-                      type="input"
+                      type="text"
                       className="form-control"
-                      id="signInEmail"
+                      id="username"
                       aria-describedby="emailHelp"
                       placeholder="Username"
+                      onChange={this.inputChangeHandler}
+                      value={this.state.user.username}
                     />
-                    <small id="emailHelp" className="form-text text-muted">
-                      We'll never share your email with anyone else.
-                    </small>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="signInPassword">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input
                       type="password"
                       className="form-control"
-                      id="signInPassword"
+                      id="password"
                       placeholder="Password"
+                      onChange={this.inputChangeHandler}
+                      value={this.state.user.password}
                     />
                   </div>
                   <div className="form-group">
@@ -85,4 +116,10 @@ class Signin extends Component {
   }
 }
 
-export default Signin;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps, { login })(Signin);

@@ -28,8 +28,8 @@ class Alert extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.errorReducer,
-    message: state.messageReducer.message
+    error: state.error,
+    message: state.message.message
   };
 };
 

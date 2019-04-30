@@ -12,7 +12,7 @@ import store from "./store/store";
 
 // Styles
 import style from "./App.module.css";
-import "./App.global.css";
+// import "./App.global.css";
 
 // Components
 import Alert from "./components/Alert/Alert";
@@ -49,18 +49,16 @@ class App extends Component {
           <div className={style.App}>
             <BrowserRouter>
               <Navbar />
-              <div className="container-fluid" id="content">
+              {/* <div className="container-fluid" id="content"> */}
                 <main role="main">
                   {/* Add className="main-content" for each component's first child element */}
                   <Switch>
-                    {/* <Route exact path="/" component={Home} /> */}
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route path="/signin" component={Signin} />
                     <Route path="/register" component={Register} />
                   </Switch>
-                  {/* <Dashboard /> */}
                 </main>
-              </div>
+              {/* </div> */}
             </BrowserRouter>
             {/* <div className="container-fluid">
           <div className={style.CardMargin}>
