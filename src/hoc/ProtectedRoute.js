@@ -2,16 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-// CHECK isAuthenticated
+import { loadUser } from "../store/actions/authActions";
 
 const ProtectedRoute = ({
   isAuthenticated,
+  foxToken,
+  loadUser,
   component: Component,
   post,
   ...rest
 }) => {
   if (!isAuthenticated) {
-    return <Redirect to="/signin" />;
+    if (foxToken) {
+      console.log("load user");
+      loadUser();
+      return <Redirect to="/signin" />;
+    } else {
+      return <Redirect to="/signin" />;
+    }
   } else {
     return (
       <Route
@@ -24,14 +32,20 @@ const ProtectedRoute = ({
   }
 };
 
-// ProtectedRoute.propTypes = {
-//   isAuthenticated: propTypes.bool.isRequired
-// }
-
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    foxToken: state.auth.foxToken
   };
 };
 
-export default connect(mapStateToProps)(ProtectedRoute);
+const mapDispatchToProps = dispatch => {
+  return {
+    loadUser: () => dispatch(loadUser())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProtectedRoute);
