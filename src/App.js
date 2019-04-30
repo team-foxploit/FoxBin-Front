@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 
 // Styles
-import style from "./App.module.css";
+// import style from "./App.module.css";
 // import "./App.global.css";
 
 // Components
@@ -44,16 +44,14 @@ class App extends Component {
     return (
       <Provider store={store}>
         <AlertProvider template={AlertTemplate} {...options}>
-          {/* <Signin /> */}
           <Alert />
-          <div className={style.App}>
             <BrowserRouter>
               <Navbar />
               {/* <div className="container-fluid" id="content"> */}
                 <main role="main">
                   {/* Add className="main-content" for each component's first child element */}
                   <Switch>
-                    <Route exact path="/dashboard" component={Dashboard} />
+                    <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                     <Route path="/signin" component={Signin} />
                     <Route path="/register" component={Register} />
                   </Switch>
@@ -112,7 +110,6 @@ class App extends Component {
             </div>
           </div>
         </div> */}
-          </div>
         </AlertProvider>
       </Provider>
     );

@@ -21,23 +21,17 @@ class Signin extends Component {
   }
 
   inputChangeHandler = e => {
-    this.setState(
-      {
+    this.setState({
         ...this.state,
         user: {
           ...this.state.user,
           [e.target.id]: e.target.value
         }
-      },
-      () => {
-        console.log(this.state.user);
-      }
-    );
+      });
   };
 
   onSubmitHandler = e => {
     e.preventDefault();
-    console.log(this.state.user);
     this.props.login(this.state.user);
   };
 
