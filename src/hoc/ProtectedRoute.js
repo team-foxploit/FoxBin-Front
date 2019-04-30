@@ -14,7 +14,6 @@ const ProtectedRoute = ({
 }) => {
   if (!isAuthenticated) {
     if (foxToken) {
-      console.log("load user");
       loadUser();
       return <Redirect to="/signin" />;
     } else {

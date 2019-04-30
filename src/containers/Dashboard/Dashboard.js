@@ -24,8 +24,6 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
-    this.props.getBlogs();
     this.props.createMessage("LOL");
     /*
     var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");

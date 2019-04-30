@@ -1,7 +1,60 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import propTypes from "prop-types";
 
-const Navbar = () => {
+import { logout } from "../../store/actions/authActions";
+
+const Navbar = props => {
+  const GuestLinks = (
+    <React.Fragment>
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/home">
+            Home <span className="sr-only">(current)</span>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/signin">
+            Sign In
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/register">
+            Register
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/about">
+            About
+          </NavLink>
+        </li>
+      </ul>
+    </React.Fragment>
+  );
+  const AuthLinks = (
+      <React.Fragment>
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/home">
+              Home <span className="sr-only">(current)</span>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/about">
+              About
+            </NavLink>
+          </li>
+        </ul>
+        <span className="navbar-text">Welcome { props.user ? props.user.username : null }</span>
+        <span className="navbar-text">
+          <button className="btn btn-sm btn-info" onClick={props.logout}>
+            Sign Out
+          </button>
+        </span>
+      </React.Fragment>
+    );
+
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
       <NavLink className="navbar-brand" to="/">
@@ -18,32 +71,28 @@ const Navbar = () => {
       >
         <span className="navbar-toggler-icon" />
       </button>
-      <div className="collapse navbar-collapse" id="navbarColor01">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
-              Home <span className="sr-only">(current)</span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/features">
-              Features
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/more">
-              More
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/about">
-              About
-            </NavLink>
-          </li>
-        </ul>
+      <div className="collapse navbar-collapse container" id="navbarColor01">
+        { 
+          props.isAuthenticated ?
+          AuthLinks
+          :
+          GuestLinks
+         }
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
+  };
+};
+
+Navbar.propTypes = {
+  isAuthenticated: propTypes.bool.isRequired,
+  logout: propTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, { logout })(Navbar);

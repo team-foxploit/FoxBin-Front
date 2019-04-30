@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 class Alert extends Component {
   componentDidUpdate(prevProps) {
     const { error, alert, message } = this.props;
-    console.log(this.props);
     if (error !== prevProps.error) {
       if (error.error.non_field_errors) {
         this.props.alert.error(error.error.non_field_errors);
