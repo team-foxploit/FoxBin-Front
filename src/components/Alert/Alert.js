@@ -10,6 +10,9 @@ class Alert extends Component {
       if (error.error.non_field_errors) {
         this.props.alert.error(error.error.non_field_errors);
       }
+      if (error.error.formError) {
+        this.props.alert.error(error.error.formError);
+      }
     }
 
     if (message !== prevProps.message) {
