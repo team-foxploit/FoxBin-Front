@@ -48,6 +48,7 @@ export const logout = () => (dispatch, getState) => {
       });
     })
     .catch(error => {
+      console.log(error);
       const errors = {
         msg: error.response.data,
         status: error.response.status
@@ -64,46 +65,14 @@ export const logout = () => (dispatch, getState) => {
 
 // REGISTER USER
 export const register = user => dispatch => {
-    dispatch({
-        type: actionTypes.AUTH_START
-    });
-    axios
-    .post("http://localhost:8000/api/auth/register", user)
-    .then(res => {
-        dispatch({
-            type: actionTypes.AUTH_SUCCESS,
-            payload: res.data
-        });
-    })
-    .catch(error => {
-        const errors = {
-            msg: error.response.data,
-            status: error.response.status
-        };
-        dispatch({
-            type: actionTypes.AUTH_FAIL
-        });
-        dispatch({
-            type: actionTypes.SHOW_ERROR,
-            payload: errors
-        });
-    });
-};
-
-
-// LOGOUT USER
-export const loadUser = () => (dispatch, getState) => {
   dispatch({
-    type: actionTypes.USER_LOADING
+    type: actionTypes.AUTH_START
   });
   axios
-    .get(
-      "http://localhost:8000/api/auth/user",
-      headerConfig(getState)
-    )
+    .post("http://localhost:8000/api/auth/register", user)
     .then(res => {
       dispatch({
-        type: actionTypes.USER_LOADED,
+        type: actionTypes.AUTH_SUCCESS,
         payload: res.data
       });
     })
@@ -118,6 +87,30 @@ export const loadUser = () => (dispatch, getState) => {
       dispatch({
         type: actionTypes.SHOW_ERROR,
         payload: errors
+      });
+    });
+};
+
+// LOAD USER
+export const loadUser = () => (dispatch, getState) => {
+  dispatch({
+    type: actionTypes.USER_LOADING
+  });
+  axios
+    .get("http://localhost:8000/api/auth/user", headerConfig(getState))
+    .then(res => {
+      dispatch({
+        type: actionTypes.USER_LOADED,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: actionTypes.AUTH_FAIL
+      });
+      dispatch({
+        type: actionTypes.SHOW_ERROR,
+        payload: error
       });
     });
 };
