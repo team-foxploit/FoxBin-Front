@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    foxToken: null,
+    foxToken: localStorage.getItem('foxToken'),
     webAPI: {
         token: null
     },
@@ -20,8 +20,28 @@ export default function (state=initialState, action) {
                 },
                 isLoading: true
             };
+        case actionTypes.USER_LOADING:
+            const foxToken = localStorage.getItem('foxToken');
+            return {
+                ...state,
+                webAPI: {
+                    ...state.webAPI
+                },
+                isLoading: true,
+                foxToken: foxToken
+            };
+        case actionTypes.USER_LOADED:
+            return {
+                ...state,
+                webAPI: {
+                    ...state.webAPI
+                },
+                user: action.payload,
+                isLoading: false,
+                isAuthenticated: true
+            };
         case actionTypes.AUTH_SUCCESS:
-            // localStorage.setItem('foxToken', action.payload.token);
+            localStorage.setItem('foxToken', action.payload.token);
             return {
                 ...state,
                 webAPI: {
@@ -31,6 +51,18 @@ export default function (state=initialState, action) {
                 foxToken: action.payload.token,
                 isAuthenticated: true,
                 isLoading: false
+            };
+        case actionTypes.USER_LOGOUT:
+            localStorage.removeItem('foxToken');
+            return {
+                ...state,
+                isLoading: false,
+                isAuthenticated: false,
+                user: null,
+                foxToken: null,
+                webAPI: {
+                    token: null
+                }
             };
         case actionTypes.AUTH_FAIL:
             localStorage.removeItem('foxToken');
