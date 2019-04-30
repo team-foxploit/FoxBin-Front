@@ -1,31 +1,36 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import propTypes from "prop-types";
+import { connect } from 'react-redux';
+
+import { register } from '../../../store/actions/authActions';
+import { SHOW_ERROR } from '../../../store/actions/actionTypes';
 
 class Register extends Component {
   state = {
     user: {
       username: {
-        value: null,
+        value: "",
         valid: false
       },
       email: {
-        value: null,
+        value: "",
         valid: false
       },
       first_name: {
-        value: null,
-        valid: false
+        value: "",
+        valid: true
       },
       last_name: {
-        value: null,
-        valid: false
+        value: "",
+        valid: true
       },
       password: {
-        value: null,
+        value: "",
         valid: false
       },
       password2: {
-        value: null,
+        value: "",
         valid: false
       }
     },
@@ -33,6 +38,12 @@ class Register extends Component {
     password1Error: true,
     password2Error: true
   };
+
+  static propTypes = {
+    register: propTypes.func.isRequired,
+    alert: propTypes.func.isRequired,
+    isAuthenticated: propTypes.bool.isRequired
+  }
 
   // triggered on change of states
   inputChangedHandler = event => {
@@ -82,8 +93,10 @@ class Register extends Component {
           });
         }
         return false;
-      default:
+      case "username":
         return value.trim() !== "";
+      default:
+        return true;
     }
   };
 
@@ -94,24 +107,36 @@ class Register extends Component {
     for (const key in this.state.user) {
       validity = validity && this.state.user[key].valid;
     }
-    this.setState(
-      {
-        formValidity: validity
+    this.setState({
+      formValidity: validity
+    },() => {
+      if (this.state.formValidity) {
+        const user = {
+          username: this.state.user.username.value,
+          email: this.state.user.email.value,
+          first_name: this.state.user.first_name.value,
+          last_name: this.state.user.last_name.value,
+          password: this.state.user.password.value
+        };
+        this.props.register(user);
+      }else{
+        if (!this.state.user.username.valid) {
+          this.props.alert({formError:"Username is invalid!"});
+        }else if(!this.state.user.email.valid){
+          this.props.alert({formError:"Email is invalid!"});
+        }else if(this.state.password2Error){
+          this.props.alert({formError:"Passwords don't match!"});
+        }
       }
-    );
-    if (this.state.formValidity) {
-      const user = {
-        username: this.state.user.username.value,
-        email: this.state.user.email.value,
-        first_name: this.state.user.first_name.value,
-        last_name: this.state.user.last_name.value,
-        password: this.state.user.password.value,
-      };
-      console.log(user);
-    }
+    });
   };
 
   render() {
+    if (this.props.isAuthenticated) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
     return (
       <div style={{ marginTop: "12px" }}>
         <div
@@ -142,6 +167,7 @@ class Register extends Component {
                       aria-describedby="firstNameHelp"
                       placeholder="First Name"
                       onChange={this.inputChangedHandler}
+                      value={this.state.user.first_name.value}
                     />
                     <small
                       id="firstNameHelp"
@@ -159,6 +185,7 @@ class Register extends Component {
                       aria-describedby="lastNameHelp"
                       placeholder="Last Name"
                       onChange={this.inputChangedHandler}
+                      value={this.state.user.last_name.value}
                     />
                     <small id="lastNameHelp" className="form-text text-primary">
                       *optional
@@ -174,6 +201,7 @@ class Register extends Component {
                     aria-describedby="userNameHelp"
                     placeholder="Username"
                     onChange={this.inputChangedHandler}
+                    value={this.state.user.username.value}
                   />
                   <small id="userNameHelp" className="form-text text-muted">
                     Your username should be unique.
@@ -188,6 +216,7 @@ class Register extends Component {
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
                     onChange={this.inputChangedHandler}
+                    value={this.state.user.email.value}
                   />
                   <small id="emailHelp" className="form-text text-muted">
                     We'll never share your email with anyone else.
@@ -203,6 +232,7 @@ class Register extends Component {
                       aria-describedby="passwordHelp"
                       placeholder="Password"
                       onChange={this.inputChangedHandler}
+                      value={this.state.user.password.value}
                     />
                     {this.state.password1Error ? (
                       <small
@@ -223,6 +253,7 @@ class Register extends Component {
                       aria-describedby="confirmPasswordHelp"
                       placeholder="Re-type Password"
                       onChange={this.inputChangedHandler}
+                      value={this.state.user.password2.value}
                     />
                     {this.state.password2Error ? (
                       <small
@@ -247,4 +278,17 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    alert: (msg) => dispatch({type: SHOW_ERROR,payload: {msg: msg, status:null}}),
+    register: (user) => dispatch(register(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
