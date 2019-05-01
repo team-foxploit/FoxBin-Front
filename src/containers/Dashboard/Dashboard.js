@@ -20,7 +20,8 @@ class Dashboard extends Component {
   static propTypes = {
     posts: propTypes.array.isRequired,
     user: propTypes.object.isRequired,
-    getBlogs: propTypes.func.isRequired
+    getBlogs: propTypes.func.isRequired,
+    createMessage: propTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -69,7 +70,7 @@ class Dashboard extends Component {
     return (
       <div className="wrapper">
         <Sidebar />
-        <div className="container-fluid" id="content">
+        <div className="container-fluid">
             <div className="col d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               {/* <Breadcrumb /> */}
               <div className="row">
@@ -80,6 +81,9 @@ class Dashboard extends Component {
                 >
                   <i className="material-icons">chevron_left</i>
                 </button>
+                <Switch>
+                    <Route to="/dashboard/account" component="Account" />
+                </Switch>
               </div>
             </div>
         </div>

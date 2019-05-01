@@ -16,6 +16,8 @@ import store from "./store/store";
 
 // Components
 import Alert from "./components/Alert/Alert";
+import Home from "./components/Home/Home";
+import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import Dashboard from "./containers/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
@@ -52,8 +54,10 @@ class App extends Component {
                         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                         <Route path="/signin" component={Signin} />
                         <Route path="/register" component={Register} />
+                        <Route path="/" component={Home} />
                     </Switch>
                 </main>
+                <Footer />
             </BrowserRouter>
         </AlertProvider>
       </Provider>
