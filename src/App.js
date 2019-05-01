@@ -47,7 +47,7 @@ class App extends Component {
           <Alert />
             <BrowserRouter>
                 <Navbar />
-                <main>
+                <main className="mt-3">
                     <Switch>
                         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                         <Route path="/signin" component={Signin} />

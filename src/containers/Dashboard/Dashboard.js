@@ -24,7 +24,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    this.props.createMessage("LOL");
+    this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
     /*
     var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
     var asset_index = null;
@@ -70,7 +70,6 @@ class Dashboard extends Component {
       <div className="wrapper">
         <Sidebar />
         <div className="container-fluid" id="content">
-          <main role="main">
             <div className="col d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               {/* <Breadcrumb /> */}
               <div className="row">
@@ -86,7 +85,6 @@ class Dashboard extends Component {
             <Switch>
               <Route path="/dashboard/account" component={Account} />
             </Switch>
-          </main>
         </div>
         {/* </div> */}
       </div>
