@@ -82,9 +82,6 @@ class Dashboard extends Component {
                 </button>
               </div>
             </div>
-            <Switch>
-              <Route path="/dashboard/account" component={Account} />
-            </Switch>
         </div>
         {/* </div> */}
       </div>

@@ -26,9 +26,9 @@ import Register from "./containers/Dashboard/Auth/Register";
 
 const options = {
   // you can also just use 'bottom center'
-  position: positions.TOP_RIGHT,
-  timeout: 5000,
-  offset: '90px',
+  position: positions.TOP_CENTER,
+  timeout: 3000,
+  offset: '80px',
   // you can also just use 'scale'
   transition: transitions.SCALE
 };
