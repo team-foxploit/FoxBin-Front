@@ -46,9 +46,8 @@ const Navbar = props => {
             </NavLink>
           </li>
         </ul>
-        <span className="navbar-text">Welcome { props.user ? props.user.username : null }</span>
-        <span className="navbar-text">
-          <button className="btn btn-sm btn-info" onClick={props.logout}>
+        <span className="ml-auto">
+          <button className="btn btn-md btn-light" onClick={props.logout}>
             Sign Out
           </button>
         </span>
@@ -56,7 +55,7 @@ const Navbar = props => {
     );
 
   return (
-    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
       <NavLink className="navbar-brand" to="/">
         FoxBinary
       </NavLink>
@@ -71,8 +70,8 @@ const Navbar = props => {
       >
         <span className="navbar-toggler-icon" />
       </button>
-      <div className="collapse navbar-collapse container" id="navbarColor01">
-        { 
+      <div className="collapse navbar-collapse" id="navbarColor01">
+        {
           props.isAuthenticated ?
           AuthLinks
           :
