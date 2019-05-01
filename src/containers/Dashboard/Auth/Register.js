@@ -138,19 +138,15 @@ class Register extends Component {
       )
     }
     return (
-      <div style={{ marginTop: "12px" }}>
-        <div
-          className="col-lg-10 col-md-10 main-content"
-          style={{ padding: "0" }}
-        >
+      <div className="container mb-4 mt-4">
           <div className="row no-gutters">
             <div className="col-md-12">
-              <h3>Register for an account to trade on Binary.com platform</h3>
+              <h3 className="text-center mb-4">Register for an account to trade on Binary.com platform</h3>
               <p>
                 You can use the automation system of foxbinary with a valid user
                 account.
               </p>
-              <small className="card-text">
+              <small>
                 If you already have an account, <Link to="/signin">login</Link>{" "}
                 instead.
               </small>
@@ -265,14 +261,14 @@ class Register extends Component {
                     ) : null}
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary">
-                  Register
-                </button>
-                <br />
+                <div className="mt-4 mb-3 text-center">
+                    <button type="submit" className="btn btn-primary">
+                        Register
+                    </button>
+                </div>
               </form>
             </div>
           </div>
-        </div>
       </div>
     );
   }
