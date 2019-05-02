@@ -138,7 +138,7 @@ class Register extends Component {
       )
     }
     return (
-      <div className="container mb-4 mt-4">
+      <div className="container mb-4 mt-5">
           <div className="row no-gutters">
             <div className="col-md-12">
               <h3 className="text-center mb-4">Register for an account to trade on Binary.com platform</h3>

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Home = (props) => {
     return (
-        <div className="container">
+        <div className="container mt-5">
             <div className="jumbotron bg-primary pt-4 pb-4 mb-3 text-center">
-                <h1 className="page-header display-4">Welcome!</h1>
+                <h1 className="page-header display-4 pt-4">Welcome!</h1>
                 <h2 className="mb-3">To FoxBinary</h2>
                 <p className="lead">Welcome to the binary trading redefined by the latest <strong>Machine Learning Predictions</strong></p>
                 <hr className="my-4"/>
