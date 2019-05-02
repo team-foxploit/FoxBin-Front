@@ -1,13 +1,6 @@
 /*
    * Content
    */
-
-.main-content {
-  text-align: left;
-  margin: auto;
+.navbar {
+    padding: 0.5rem 2rem;
 }
-
-[role="main"] {
-  padding-top: 92px; /* Space for fixed navbar */
-  text-align: left;
-} 

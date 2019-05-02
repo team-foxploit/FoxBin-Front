@@ -54,7 +54,7 @@ class App extends Component {
                         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                         <Route path="/signin" component={Signin} />
                         <Route path="/register" component={Register} />
-                        <Route path="/" component={Home} />
+                        <Route exact path="/" component={Home} />
                     </Switch>
                 </main>
                 <Footer />
