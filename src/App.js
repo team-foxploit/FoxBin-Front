@@ -12,7 +12,7 @@ import store from "./store/store";
 
 // Styles
 // import style from "./App.module.css";
-// import "./App.global.css";
+import "./App.global.css";
 
 // Components
 import Alert from "./components/Alert/Alert";
@@ -49,7 +49,7 @@ class App extends Component {
           <Alert />
             <BrowserRouter>
                 <Navbar />
-                <main className="mt-3">
+                <main className="mt-0">
                     <Switch>
                         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                         <Route path="/signin" component={Signin} />

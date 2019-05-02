@@ -6,15 +6,18 @@ import { connect } from "react-redux";
 import { getBlogs } from "../../store/actions/blogActions";
 import { createMessage } from "../../store/actions/messageActions";
 
-import Sidebar from "./Sidebar/BSidebar";
+import Sidebar from "./Sidebar/Sidebar";
 // import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import Account from "./Account/Account";
+import HeaderBar from "./HeaderBar/HeaderBar";
+import History from "./History/History";
 
 class Dashboard extends Component {
   state = {
     asset_index: null,
     symobl_names: null,
-    url_slug: []
+    url_slug: [],
+    showSidebar: true
   };
 
   static propTypes = {
@@ -23,6 +26,14 @@ class Dashboard extends Component {
     getBlogs: propTypes.func.isRequired,
     createMessage: propTypes.func.isRequired
   };
+
+  controlSidebar = () => {
+    this.setState({
+        showSidebar: !this.state.showSidebar
+    }, () => {
+        console.log(this.state.showSidebar);
+    });
+  }
 
   componentDidMount() {
     this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
@@ -68,25 +79,31 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <Sidebar />
-        <div className="container-fluid">
-            <div className="col d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              {/* <Breadcrumb /> */}
-              <div className="row">
-                <button
-                  type="button"
-                  id="sidebarCollapse"
-                  className="btn btn-sm btn-info"
-                >
-                  <i className="material-icons">chevron_left</i>
-                </button>
-                <Switch>
-                    <Route to="/dashboard/account" component="Account" />
-                </Switch>
-              </div>
-            </div>
-        </div>
+      <div className="container-fluid">
+          <HeaderBar constrolSidebar={this.controlSidebar}/>
+          <div className="row d-flex justify-content-between">
+              {
+                  this.state.showSidebar ?
+                  <Sidebar />
+                  :
+                  null
+              }
+              <div className="col mt-4">
+                  {/* <Breadcrumb /> */}
+                  {/*<button
+                      type="button"
+                      id="sidebarCollapse"
+                      className="btn btn-sm btn-info"
+                      >
+                      <i className="material-icons">chevron_left</i>
+                      </button>*/}
+
+                      <Switch>
+                          <Route exact path="/dashboard/account" component={Account} />
+                          <Route to="/history" component={History} />
+                      </Switch>
+                  </div>
+          </div>
       </div>
     );
   }

@@ -3,7 +3,6 @@ import React from 'react';
 const Footer = (props) => {
     return (
         <footer className="footer bg-transparent mt-auto py-3">
-            <hr/>
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
