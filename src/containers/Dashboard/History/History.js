@@ -2,7 +2,7 @@ import React from 'react';
 
 const History = (props) => {
     return (
-        <div className="container text-center">
+        <div className="text-center">
             <h4 className="mb-4">This is based on both the platforms binary.com and foxbinary</h4>
             <table className="table table-bordered table-hover">
               <thead className="text-info">
