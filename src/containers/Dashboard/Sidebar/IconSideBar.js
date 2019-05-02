@@ -7,7 +7,7 @@ import "./IconSideBar.css";
 const IconSideBar = props => {
   return (
     <Fragment>
-        <div className="col-md-1 px-0 sidebar">
+        <div className="col-xm-1 px-0" id="sidebar">
             <ul class="nav flex-column">
                 <li class="nav-item shadow">
                     <NavLink className="nav-link" to="/dashboard">
