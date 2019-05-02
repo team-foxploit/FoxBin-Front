@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
+import './Navbar.css';
 
 import { logout } from "../../store/actions/authActions";
 
