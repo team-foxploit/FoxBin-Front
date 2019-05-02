@@ -31,13 +31,11 @@ class Dashboard extends Component {
   controlSidebar = () => {
     this.setState({
         showSidebar: !this.state.showSidebar
-    }, () => {
-        console.log(this.state.showSidebar);
     });
   }
 
   componentDidMount() {
-    this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
+    // this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
     /*
     var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
     var asset_index = null;
@@ -89,7 +87,7 @@ class Dashboard extends Component {
                   :
                   <IconSideBar />
               }
-              <div className="col mt-4">
+              <div className="col mt-4" style={{'minWidth': '298px'}}>
                   {/* <Breadcrumb /> */}
                   {/*<button
                       type="button"
