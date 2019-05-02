@@ -7,6 +7,7 @@ import { getBlogs } from "../../store/actions/blogActions";
 import { createMessage } from "../../store/actions/messageActions";
 
 import Sidebar from "./Sidebar/Sidebar";
+import IconSideBar from "./Sidebar/IconSideBar";
 // import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import Account from "./Account/Account";
 import HeaderBar from "./HeaderBar/HeaderBar";
@@ -86,7 +87,7 @@ class Dashboard extends Component {
                   this.state.showSidebar ?
                   <Sidebar />
                   :
-                  null
+                  <IconSideBar />
               }
               <div className="col mt-4">
                   {/* <Breadcrumb /> */}
