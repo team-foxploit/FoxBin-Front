@@ -10,8 +10,8 @@ const HeaderBar = props => {
   return (
         <div className="row bg-dark mb-0 d-flex justify-content-between">
             <nav className="nav">
-                <NavLink className="nav-link bg-info" to="/dashboard" onClick={props.constrolSidebar}><i className="material-icons sidebar-toggler">menu</i></NavLink>
-                <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+                <NavLink className="nav-link bg-info" onClick={props.constrolSidebar}><i className="material-icons sidebar-toggler">menu</i></NavLink>
+                <NavLink className="nav-link" to="/integra">Automation is Enabled</NavLink>
             </nav>
             {props.username ?
                 <span className="navbar-text pr-3 pt-2 text-white-50">
