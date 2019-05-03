@@ -70,7 +70,7 @@ export default function (state=initialState, action) {
                 ...state,
                 isLoading: false,
                 isAuthenticated: false,
-                user: null,
+                user: {},
                 foxToken: null,
                 webAPI: {
                     ...state.webAPI

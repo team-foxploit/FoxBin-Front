@@ -9,9 +9,17 @@ class Alert extends Component {
       if (error.error.non_field_errors) {
         this.props.alert.error(error.error.non_field_errors);
       }
+
       if (error.error.formError) {
         this.props.alert.error(error.error.formError);
       }
+      
+      /* TODO: Check for the first time
+      * this is for the authentication details were not provided error.
+      if (error.error.detail) {
+         this.props.alert.error(error.error.detail);
+      }*/
+      
     }
 
     if (message !== prevProps.message) {

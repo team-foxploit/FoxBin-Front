@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import propTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { getBlogs } from "../../store/actions/blogActions";
+import { loadUser } from "../../store/actions/authActions";
 import { createMessage } from "../../store/actions/messageActions";
 
 import Sidebar from "./Sidebar/Sidebar";
@@ -12,6 +12,7 @@ import IconSideBar from "./Sidebar/IconSideBar";
 import Account from "./Account/Account";
 import HeaderBar from "./HeaderBar/HeaderBar";
 import History from "./History/History";
+import Integration from "./Integration/Integration";
 
 class Dashboard extends Component {
   state = {
@@ -24,7 +25,7 @@ class Dashboard extends Component {
   static propTypes = {
     posts: propTypes.array.isRequired,
     user: propTypes.object.isRequired,
-    getBlogs: propTypes.func.isRequired,
+    loadUser: propTypes.func.isRequired,
     createMessage: propTypes.func.isRequired
   };
 
@@ -35,6 +36,8 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+      // console.log(this.props);
+      // this.props.loadUser();
     // this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
     /*
     var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
@@ -88,6 +91,11 @@ class Dashboard extends Component {
                   <IconSideBar />
               }
               <div className="col mt-4" style={{'minWidth': '298px'}}>
+                  <button className="btn btn-primary" type="button" onClick={this.handleClick} >
+                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                      <a href="https://oauth.binary.com/oauth2/authorize?app_id=16334">Login</a>
+                  </button>
                   {/* <Breadcrumb /> */}
                   {/*<button
                       type="button"
@@ -96,11 +104,6 @@ class Dashboard extends Component {
                       >
                       <i className="material-icons">chevron_left</i>
                       </button>*/}
-
-                      <Switch>
-                          <Route exact path="/dashboard/account" component={Account} />
-                          <Route to="/history" component={History} />
-                      </Switch>
                   </div>
           </div>
       </div>
@@ -117,7 +120,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBlogs:() => dispatch(getBlogs),
+    loadUser:() => dispatch(loadUser),
     createMessage: msg => dispatch(createMessage(msg))
   };
 };

@@ -17,6 +17,7 @@ export const login = user => dispatch => {
       });
     })
     .catch(error => {
+      console.log(error);
       const errors = {
         msg: error.response.data,
         status: error.response.status
@@ -105,12 +106,19 @@ export const loadUser = () => (dispatch, getState) => {
       });
     })
     .catch(error => {
+      let errors = null;
+      if(error.response){
+          errors = {
+              msg: error.response.data,
+              status: error.response.status
+          };
+      }
       dispatch({
         type: actionTypes.AUTH_FAIL
       });
       dispatch({
         type: actionTypes.SHOW_ERROR,
-        payload: error
+        payload: errors
       });
     });
 };

@@ -37,7 +37,7 @@ class Signin extends Component {
 
   render() {
 
-    if(this.props.isAuthenticated){
+    if(this.props.isAuthenticated && !this.props.isLoading){
       return (
         <Redirect to="/dashboard" />
       )
@@ -123,7 +123,8 @@ class Signin extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    isLoading: state.auth.isLoading
   }
 }
 
