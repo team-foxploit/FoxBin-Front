@@ -37,9 +37,11 @@ const Navbar = props => {
       <React.Fragment>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
-              Home <span className="sr-only">(current)</span>
-            </NavLink>
+            {props.isAuthenticated ? 
+              <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+              :
+              <NavLink className="nav-link" to="/home">Home</NavLink>
+            }
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/about">
@@ -48,7 +50,7 @@ const Navbar = props => {
           </li>
         </ul>
         <span className="ml-auto">
-          <button className="btn btn-md btn-light" onClick={props.logout}>
+          <button className="btn btn-md btn-light p-2" onClick={props.logout}>
             Sign Out
           </button>
         </span>
