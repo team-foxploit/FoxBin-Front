@@ -11,3 +11,7 @@ export const AUTH_FAIL = "AUTH_FAIL";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
+
+export const TOKEN_FETCH_START = "TOKEN_FETCH_START";
+export const TOKEN_FETCH_SUCCESS = "TOKEN_FETCH_SUCCESS";
+export const TOKEN_FETCH_FAIL = "TOKEN_FETCH_FAIL";

@@ -1,46 +1,43 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
+
+import { connect } from 'react-redux';
+import { loadTokens } from "../../../store/actions/tokenActions";
+
+import ListGroup from '../../../components/ListGroup/ListGroup';
 
 class Integration extends Component {
+
+    static propTypes = {
+        isAuthenticated: propTypes.bool.isRequired,
+        isLoading: propTypes.bool.isRequired,
+        isLoaded: propTypes.bool.isRequired,
+        tokens: propTypes.array.isRequired,
+        loadTokens: propTypes.func.isRequired
+    }
+
+    componentDidMount(){
+        if(this.props.isAuthenticated && !this.props.isLoaded){
+            this.props.loadTokens();
+        }
+    }
+
   render() {
-    return (
-      <div className="list-group">
-        <li className="list-group-item list-group-item-action active">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">List group item heading</h5>
-            <small>3 days ago</small>
-          </div>
-          <p className="mb-1">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-            eget risus varius blandit.
-          </p>
-          <small>Donec id elit non mi porta.</small>
-        </li>
-        <li className="list-group-item list-group-item-action">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">List group item heading</h5>
-            <small className="text-muted">3 days ago</small>
-          </div>
-          <p className="mb-1">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-            eget risus varius blandit.
-          </p>
-          <small className="text-muted">Donec id elit non mi porta.</small>
-        </li>
-        <li className="list-group-item list-group-item-action">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">List group item heading</h5>
-            <small className="text-muted">3 days ago</small>
-          </div>
-          <p className="mb-1">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-            eget risus varius blandit.
-          </p>
-          <small className="text-muted">Donec id elit non mi porta.</small>
-        </li>
-      </div>
-    );
+    if (this.props.isLoaded) {
+        return <ListGroup tokens={this.props.tokens}/>
+    }else{
+        return<h1>Loading.............</h1>
+    }
   }
 }
 
-export default Integration;
+const mapStateToProps = state => {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      isLoading: state.token.isLoading,
+      isLoaded: state.token.isLoaded,
+      tokens: state.token.tokens
+    };
+  };
+
+export default connect(mapStateToProps, { loadTokens })(Integration);
