@@ -24,6 +24,7 @@ class Dashboard extends Component {
 
   static propTypes = {
     posts: propTypes.array.isRequired,
+    isAuthenticated: propTypes.bool.isRequired,
     user: propTypes.object.isRequired,
     loadUser: propTypes.func.isRequired,
     createMessage: propTypes.func.isRequired
@@ -31,14 +32,11 @@ class Dashboard extends Component {
 
   controlSidebar = () => {
     this.setState({
-        showSidebar: !this.state.showSidebar
+      showSidebar: !this.state.showSidebar
     });
-  }
+  };
 
   componentDidMount() {
-      // console.log(this.props);
-      // this.props.loadUser();
-    // this.props.createMessage(`Welcome! ${this.props.user? this.props.user.username : null}`);
     /*
     var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
     var asset_index = null;
@@ -82,30 +80,28 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="container-fluid">
-          <HeaderBar constrolSidebar={this.controlSidebar}/>
-          <div className="row d-flex justify-content-between">
-              {
-                  this.state.showSidebar ?
-                  <Sidebar />
-                  :
-                  <IconSideBar />
-              }
-              <div className="col mt-4" style={{'minWidth': '298px'}}>
-                  <button className="btn btn-primary" type="button" onClick={this.handleClick} >
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Loading...
-                      <a href="https://oauth.binary.com/oauth2/authorize?app_id=16334">Login</a>
-                  </button>
-                  {/* <Breadcrumb /> */}
-                  {/*<button
-                      type="button"
-                      id="sidebarCollapse"
-                      className="btn btn-sm btn-info"
-                      >
-                      <i className="material-icons">chevron_left</i>
-                      </button>*/}
-                  </div>
+        {this.props.isAuthenticated ? (
+          <HeaderBar constrolSidebar={this.controlSidebar} />
+        ) : null}
+        <div className="row d-flex justify-content-between">
+          {this.state.showSidebar ? <Sidebar /> : <IconSideBar />}
+          <div
+            className="col mt-4"
+            style={{ minWidth: "298px", minHeight: "480px" }}
+          >
+            {/* <Breadcrumb /> */}
+            {/* <button className="btn btn-primary" type="button" onClick={this.handleClick} >
+                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                    <a href="https://oauth.binary.com/oauth2/authorize?app_id=16334">Login</a>
+                </button> */}
+            <Switch>
+              <Route exact path="/dashboard/account" component={Account} />
+              <Route exact path="/dashboard/history" component={History} />
+              <Route exact path="/dashboard/integra" component={Integration} />
+            </Switch>
           </div>
+        </div>
       </div>
     );
   }
@@ -114,13 +110,14 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.blog.posts,
+    isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadUser:() => dispatch(loadUser),
+    loadUser: () => dispatch(loadUser),
     createMessage: msg => dispatch(createMessage(msg))
   };
 };

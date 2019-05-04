@@ -54,12 +54,12 @@ class App extends Component {
             <BrowserRouter>
                 <Navbar />
                 <main className="mt-0">
-                    <Switch>
+                    {/* <Switch> */}
                         <Route exact path="/" component={Home} />
                         <ProtectedRoute path="/dashboard" component={Dashboard} />
                         <Route path="/signin" component={Signin} />
                         <Route path="/register" component={Register} />
-                    </Switch>
+                    {/* </Switch> */}
                 </main>
                 <Footer />
             </BrowserRouter>
