@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-// import { loadUser } from "../store/actions/authActions";
+import { SwapSpinner } from "react-spinners-kit";
 
 const ProtectedRoute = ({
   isAuthenticated,
@@ -18,7 +18,19 @@ const ProtectedRoute = ({
             {...rest}
             render={props => {
                 if (isLoading) {
-                    return <h2>Loading...</h2>;
+                    return (
+                      <div className="container d-flex justify-content-center">
+                        <div className="row m-5 p-5">
+                          <div className="col m-5 p-5">
+                            <SwapSpinner
+                                size={60}
+                                color="#686769"
+                                loading={isLoading}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    );
                 } else if (!isAuthenticated && foxToken === null) {
                     return <Redirect to="/signin" />;
                 }else{

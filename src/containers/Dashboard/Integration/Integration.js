@@ -6,6 +6,8 @@ import { loadTokens } from "../../../store/actions/tokenActions";
 
 import ListGroup from '../../../components/ListGroup/ListGroup';
 
+import { WhisperSpinner } from "react-spinners-kit";
+
 class Integration extends Component {
 
     static propTypes = {
@@ -26,7 +28,19 @@ class Integration extends Component {
     if (this.props.isLoaded) {
         return <ListGroup tokens={this.props.tokens}/>
     }else{
-        return<h1>Loading.............</h1>
+        return (
+          <div className="container d-flex justify-content-center">
+            <div className="row">
+              <div className="col mt-5">
+                <WhisperSpinner
+                          size={50}
+                          color="#126246f"
+                          loading={!this.props.isLoaded}
+                />
+              </div>
+            </div>
+          </div>
+        )
     }
   }
 }

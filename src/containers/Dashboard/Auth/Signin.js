@@ -6,6 +6,7 @@ import propTypes from 'prop-types';
 import { login } from '../../../store/actions/authActions';
 
 import BusinessChatImg from "../../../assets/business-chart.jpg";
+import { WhisperSpinner } from "react-spinners-kit";
 
 class Signin extends Component {
   state = {
@@ -56,56 +57,64 @@ class Signin extends Component {
                             />
                     </div>
                     <div className="col-md-8">
-                        <div className="card-header bg-transparent"><h5>Login to trade on Binary.com platform</h5></div>
+                        <div className="card-header pt-4"><h5>Login to trade on Binary.com platform</h5></div>
                         <div className="card-body">
-                            <h5 className="card-title">
+                            {this.props.isLoading ? 
+                              <div className="col my-5 py-5 d-flex justify-content-center">
+                                <WhisperSpinner
+                                          size={50}
+                                          color="#126246f"
+                                          loading={!this.props.isLoaded}
+                                />
+                              </div>
+                              :
+                              <form className="text-left" onSubmit={this.onSubmitHandler}>
+                                  <div className="form-group">
+                                      <label htmlFor="username">Username</label>
+                                      <input
+                                          type="text"
+                                          className="form-control"
+                                          id="username"
+                                          aria-describedby="emailHelp"
+                                          placeholder="Username"
+                                          onChange={this.inputChangeHandler}
+                                          value={this.state.user.username}
+                                          />
+                                  </div>
+                                  <div className="form-group">
+                                      <label htmlFor="password">Password</label>
+                                      <input
+                                          type="password"
+                                          className="form-control"
+                                          id="password"
+                                          placeholder="Password"
+                                          onChange={this.inputChangeHandler}
+                                          value={this.state.user.password}
+                                          />
+                                  </div>
+                                  <div className="form-group">
+                                      <div className="form-group form-check">
+                                          <input
+                                              type="checkbox"
+                                              className="form-check-input"
+                                              id="rememberCheck"
+                                              />
+                                          <label
+                                              className="form-check-label"
+                                              htmlFor="rememberCheck"
+                                              >
+                                              Remember me
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div className="form-group text-center">
+                                      <button type="submit" className="btn btn-primary">
+                                          SIGN IN
+                                      </button>
+                                  </div>
+                              </form>
+                            }
 
-                            </h5>
-                            <form className="text-left" onSubmit={this.onSubmitHandler}>
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="username"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Username"
-                                        onChange={this.inputChangeHandler}
-                                        value={this.state.user.username}
-                                        />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="password"
-                                        placeholder="Password"
-                                        onChange={this.inputChangeHandler}
-                                        value={this.state.user.password}
-                                        />
-                                </div>
-                                <div className="form-group">
-                                    <div className="form-group form-check">
-                                        <input
-                                            type="checkbox"
-                                            className="form-check-input"
-                                            id="rememberCheck"
-                                            />
-                                        <label
-                                            className="form-check-label"
-                                            htmlFor="rememberCheck"
-                                            >
-                                            Remember me
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="form-group text-center">
-                                    <button type="submit" className="btn btn-primary">
-                                        SIGN IN
-                                    </button>
-                                </div>
-                            </form>
                             <div className="col">
                                 <small className="card-text">
                                     If you do not have an account, please{" "}
