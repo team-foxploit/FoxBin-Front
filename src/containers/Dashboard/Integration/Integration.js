@@ -19,14 +19,24 @@ class Integration extends Component {
     static propTypes = {
         isAuthenticated: propTypes.bool.isRequired,
         binaryAPI: propTypes.object.isRequired,
-        loadTokens: propTypes.func.isRequired
-    }
+        loadTokens: propTypes.func.isRequired,
+        validateToken: propTypes.func.isRequired,
+        addToken: propTypes.func.isRequired,
+        alertZeroTokenError: propTypes.func.isRequired
+      }
 
     componentDidMount(){
         if(this.props.isAuthenticated && !this.props.binaryAPI.isLoading){
             this.props.loadTokens();
         }
-        console.log(window.location.search);
+        var params = window.location.search.split("=");
+        if(params.length > 1){
+          const token = params[2].split("&")[0];
+          console.log(token);
+          this.setState({
+            formInput: token
+          })
+        }
     }
 
     handleOAuth = (e) => {
@@ -95,7 +105,7 @@ class Integration extends Component {
                     <div className="form-group row">
                       <label className="col-sm-2 col-form-label" htmlFor="tokenInput">Token</label>
                       <div className="col-sm-10">
-                        <input type="text" onChange={this.inputChangeHandler} className="form-control" id="tokenInput" aria-describedby="token help" placeholder="Enter token" />
+                        <input type="text" value={this.state.formInput} onChange={this.inputChangeHandler} className="form-control" id="tokenInput" aria-describedby="token help" placeholder="Enter token" />
                       </div>
                     </div>
                     <div className="form-group">
