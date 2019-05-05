@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 
 import { connect } from 'react-redux';
 import { loadTokens, validateToken, addToken } from "../../../store/actions/tokenActions";
+import { SHOW_ERROR } from "../../../store/actions/actionTypes";
 
 import ListGroup from '../../../components/ListGroup/ListGroup';
 
@@ -29,8 +30,12 @@ class Integration extends Component {
     }
 
     handleValidation = () => {
-      const latestToken = this.props.binaryAPI.tokens[0].token;
-      this.props.validateToken(latestToken);
+      if(this.props.binaryAPI.tokens.length > 0){
+        const latestToken = this.props.binaryAPI.tokens[0].token;
+        this.props.validateToken(latestToken);
+      }else{
+        this.props.alertZeroTokenError();
+      }
     }
 
     handleDisplayForm = () => {
@@ -84,22 +89,24 @@ class Integration extends Component {
                       <input type="radio" name="options" id="option2" disabled={!this.props.binaryAPI.isValidated} autoComplete="off"/>Authorize now
                     </label>
                   </div>
-                    <form className="mt-3" onSubmit={this.handleAddToken}>
-                      <div className="form-group row">
-                        <label className="col-sm-2 col-form-label" htmlFor="tokenInput">Token</label>
-                        <div className="col-sm-10">
-                          <input type="text" onChange={this.inputChangeHandler} className="form-control" id="tokenInput" aria-describedby="token help" placeholder="Enter token" />
-                        </div>
+                  <p className="card-text my-3">Or, you can add a token manually using this form.
+                  You can create a token on the binary.com platform via the <strong>security & limitations</strong> under <strong>settings</strong> section in the binary platform.</p>
+                  <form className="mt-3" onSubmit={this.handleAddToken}>
+                    <div className="form-group row">
+                      <label className="col-sm-2 col-form-label" htmlFor="tokenInput">Token</label>
+                      <div className="col-sm-10">
+                        <input type="text" onChange={this.inputChangeHandler} className="form-control" id="tokenInput" aria-describedby="token help" placeholder="Enter token" />
                       </div>
-                      <div className="form-group">
-                        {this.state.formError ? 
-                            <small className="form-text text-danger">Invalid token!</small>
-                          :
-                            <p id="token help" className="form-text text-muted">You can create a token manually via the security & limitations under settings section in the binary platform.</p>
-                        }
-                        <button className="btn btn-info" type="submit">Add token</button>
-                      </div>
-                    </form>
+                    </div>
+                    <div className="form-group">
+                      {this.state.formError ? 
+                          <small id="token help" className="form-text text-danger mb-3">Invalid token!</small>
+                        :
+                          null
+                      }
+                      <button className="btn btn-info" type="submit">Add token</button>
+                    </div>
+                  </form>
                 </div>
                 <div className="card-footer text-muted">
                   <small>*Authorize now is optional</small>
@@ -137,6 +144,22 @@ const mapStateToProps = state => {
       isAuthenticated: state.auth.isAuthenticated,
       binaryAPI: state.token
     };
-  };
+};
 
-export default connect(mapStateToProps, { loadTokens, validateToken, addToken })(Integration);
+const mapDispatchToProps = dispatch => {
+    return {
+      loadTokens,
+      validateToken,
+      addToken,
+      alertZeroTokenError: (msg) => dispatch({
+                                        type: SHOW_ERROR,
+                                        payload: {
+                                          msg: {
+                                            invalidTokenError: "You have zero token available!"
+                                          }
+                                        }
+                                      })
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Integration);
