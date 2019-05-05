@@ -5,7 +5,7 @@ import { createMessage } from './messageActions';
 
 // GET blogs
 export const getBlogs = () => dispatch=> {
-    axios.get('http://localhost:8000/api/tickhistory')
+    axios.get('https://foxbin-api.herokuapp.com/api/tickhistory')
         .then((res) => {
             dispatch({
                 type: actionTypes.GET_BLOGS,

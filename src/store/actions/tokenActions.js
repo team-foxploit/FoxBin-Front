@@ -13,7 +13,7 @@ export const loadTokens = () => (dispatch, getState) => {
     type: actionTypes.TOKEN_FETCH_START
   });
   axios
-    .get("http://localhost:8000/api/token", headerConfig(getState))
+    .get("https://foxbin-api.herokuapp.com/api/token", headerConfig(getState))
     .then(res => {
       dispatch({
         type: actionTypes.TOKEN_FETCH_SUCCESS,
@@ -38,7 +38,7 @@ export const addToken = (token) => (dispatch, getState) => {
     type: actionTypes.TOKEN_ADD_START
   });
   axios
-    .post("http://localhost:8000/api/token/", token, headerConfig(getState))
+    .post("https://foxbin-api.herokuapp.com/api/token/", token, headerConfig(getState))
     .then(res => {
       var tokens = getState().token.tokens;
       var secondToken = tokens.shift();

@@ -11,7 +11,6 @@ import { WhisperSpinner } from "react-spinners-kit";
 
 class Integration extends Component {
     state = {
-      showForm: false,
       formInput: "",
       formError: false,
       token: null
@@ -27,6 +26,13 @@ class Integration extends Component {
         if(this.props.isAuthenticated && !this.props.binaryAPI.isLoading){
             this.props.loadTokens();
         }
+        console.log(window.location.search);
+    }
+
+    handleOAuth = (e) => {
+      // console.log(e);
+      var newWindow = window.open("https://oauth.binary.com/oauth2/authorize?app_id=17015");
+      // console.log(newWindow);
     }
 
     handleValidation = () => {
@@ -36,12 +42,6 @@ class Integration extends Component {
       }else{
         this.props.alertZeroTokenError();
       }
-    }
-
-    handleDisplayForm = () => {
-      this.setState({
-        showForm: !this.state.showForm
-      });
     }
 
     inputChangeHandler = (e) => {
@@ -85,7 +85,7 @@ class Integration extends Component {
                     <label className="btn btn-primary" onClick={this.handleValidation}>
                       <input type="radio" name="options" id="option1"  disabled={this.props.binaryAPI.isValidated} autoComplete="on"/>validation check
                     </label>
-                    <label className="btn btn-primary" onClick={this.handleDisplayForm}>
+                    <label className="btn btn-primary" onClick={this.handleOAuth}>
                       <input type="radio" name="options" id="option2" disabled={!this.props.binaryAPI.isValidated} autoComplete="off"/>Authorize now
                     </label>
                   </div>
