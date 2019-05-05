@@ -6,14 +6,16 @@ class Alert extends Component {
   componentDidUpdate(prevProps) {
     const { error, alert, message } = this.props;
     if (error !== prevProps.error) {
-      if (error.error.non_field_errors) {
-        this.props.alert.error(error.error.non_field_errors);
-      }
-      if(error.error.invalidTokenError){
-        this.props.alert.error(error.error.invalidTokenError);
-      }
-      if (error.error.formError) {
-        this.props.alert.error(error.error.formError);
+      if(error.error){
+        if (error.error.non_field_errors) {
+          this.props.alert.error(error.error.non_field_errors);
+        }
+        if(error.error.invalidTokenError){
+          this.props.alert.error(error.error.invalidTokenError);
+        }
+        if (error.error.formError) {
+          this.props.alert.error(error.error.formError);
+        }
       }
       
       /* TODO: Check for the first time

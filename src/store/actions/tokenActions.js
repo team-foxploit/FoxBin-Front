@@ -32,11 +32,45 @@ export const loadTokens = () => (dispatch, getState) => {
     });
 };
 
+// ADD token
+export const addToken = (token) => (dispatch, getState) => {
+  dispatch({
+    type: actionTypes.TOKEN_ADD_START
+  });
+  axios
+    .post("http://localhost:8000/api/token/", token, headerConfig(getState))
+    .then(res => {
+      var tokens = getState().token.tokens;
+      var secondToken = tokens.shift();
+      secondToken['active'] = false;
+      var newToken = {
+        id: res.data.id,
+        token:  res.data.token,
+        active:  true,
+        created_at:  res.data.created_at
+      };
+      tokens.splice(0, 0, newToken, secondToken);
+      dispatch({
+        type: actionTypes.TOKEN_ADD_SUCCESS,
+        payload: tokens
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch({
+        type: actionTypes.TOKEN_ADD_FAIL
+      });
+      dispatch({
+        type: actionTypes.SHOW_ERROR,
+        payload: error
+      });
+    });
+};
+
 
 /*
 * ---- BINARY.COM API calls ----
 */
-
 
 // Validate token
 export const validateToken = (token) => (dispatch) => {

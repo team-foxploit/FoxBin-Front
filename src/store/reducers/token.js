@@ -13,6 +13,7 @@ export default function (state=initialState, action) {
     switch (action.type) {
         
         // Token Fetching [FoxBinary]
+        case actionTypes.TOKEN_ADD_START:
         case actionTypes.TOKEN_FETCH_START:
             return {
                 ...state,
@@ -48,6 +49,20 @@ export default function (state=initialState, action) {
         case actionTypes.TOKEN_FETCH_FAIL:
             return{
                 tokens: [],
+                isLoading: false
+            }
+
+        case actionTypes.TOKEN_ADD_SUCCESS:
+            const newTokens = action.payload;
+            return {
+                ...state,
+                tokens: newTokens,
+                isLoading: false,
+            }
+        case actionTypes.TOKEN_ADD_FAIL:
+            return{
+                ...state,
+                isValidated: false,
                 isLoading: false
             }
         

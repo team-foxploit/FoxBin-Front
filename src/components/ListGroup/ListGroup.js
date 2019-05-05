@@ -2,7 +2,6 @@ import React from "react";
 import ListItem from './ListItem';
 
 const ListGroup = props => {
-  console.log(props);    
   return (
     <div className="list-group">
       {props.tokens.map((token) => {
