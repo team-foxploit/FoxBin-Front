@@ -148,9 +148,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-      loadTokens,
-      validateToken,
-      addToken,
+      loadTokens: () => dispatch(loadTokens()),
+      validateToken: (token) => dispatch(validateToken(token)),
+      addToken: (token) => dispatch(addToken(token)),
       alertZeroTokenError: (msg) => dispatch({
                                         type: SHOW_ERROR,
                                         payload: {
