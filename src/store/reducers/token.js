@@ -22,24 +22,26 @@ export default function (state=initialState, action) {
         case actionTypes.TOKEN_FETCH_SUCCESS:
             var tokens = [];
             var token = {};
-            for(let i = action.payload.length - 1 ; i >= 0 ; i--) {
-                token = {
-                    id: action.payload[i].id,
-                    token: action.payload[i].token,
-                    created_at: action.payload[i].created_at
-                }
-                if(i === action.payload.length - 1){
+            if(action.payload.length > 0){
+                for(let i = action.payload.length - 1 ; i >= 0 ; i--) {
                     token = {
-                        ...token,
-                        active: true,
+                        id: action.payload[i].id,
+                        token: action.payload[i].token,
+                        created_at: action.payload[i].created_at
                     }
-                }else{
-                    token = {
-                        ...token,
-                        active: false
+                    if(i === action.payload.length - 1){
+                        token = {
+                            ...token,
+                            active: true,
+                        }
+                    }else{
+                        token = {
+                            ...token,
+                            active: false
+                        }
                     }
+                    tokens.push(token);
                 }
-                tokens.push(token);
             }
             return {
                 ...state,
@@ -53,6 +55,7 @@ export default function (state=initialState, action) {
             }
 
         case actionTypes.TOKEN_ADD_SUCCESS:
+            console.log(action.payload);
             const newTokens = action.payload;
             return {
                 ...state,

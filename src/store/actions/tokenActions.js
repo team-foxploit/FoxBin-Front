@@ -41,15 +41,19 @@ export const addToken = (token) => (dispatch, getState) => {
     .post("https://foxbin-api.herokuapp.com/api/token/", token, headerConfig(getState))
     .then(res => {
       var tokens = getState().token.tokens;
-      var secondToken = tokens.shift();
-      secondToken['active'] = false;
       var newToken = {
         id: res.data.id,
         token:  res.data.token,
         active:  true,
         created_at:  res.data.created_at
       };
-      tokens.splice(0, 0, newToken, secondToken);
+      if(tokens.length > 0){
+        var secondToken= tokens.shift();
+        secondToken['active'] = false;
+        tokens.splice(0, 0, newToken, secondToken);
+      }else{
+        tokens= [newToken];
+      }
       dispatch({
         type: actionTypes.TOKEN_ADD_SUCCESS,
         payload: tokens
