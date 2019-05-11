@@ -13,6 +13,7 @@ body {
   bottom: 0;
   left: 0;
   max-width: 180px;
+  max-height: 100%;
   z-index: 100;
   box-shadow: inset -1px 1px 1px rgba(30, 54, 41, 0.1);
   background: currentColor;

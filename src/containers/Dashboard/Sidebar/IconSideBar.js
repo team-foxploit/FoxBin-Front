@@ -8,7 +8,7 @@ const IconSideBar = props => {
     <Fragment>
         <div className="col-xm-1 px-0" id="sidebar">
             <ul className="nav flex-column">
-                <li classNames="nav-item shadow">
+                <li className="nav-item shadow">
                     <NavLink className="nav-link" exact to="/dashboard">
                         <i className="material-icons text-secondary">home</i>
                     </NavLink>
