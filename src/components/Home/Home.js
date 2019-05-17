@@ -56,7 +56,7 @@ const Home = (props) => {
                 <div className="card-header">Is it Working?</div>
                 <div className="card-body">
                   <h5 className="card-title">Everything is not 100% perfect.</h5>
-                  <p className="card-text text-justify">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                  <p className="card-text text-justify">The real-time testing for prediction may result accountable drawbacks including delays, loss of accurate, etc. The RNN modal is yet to be perfected in future with more advanced and improved neural network concepts.</p>
                 </div>
                 <div className="card-footer">
                   <small className="text-muted">@foxbinary</small>
