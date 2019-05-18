@@ -10,6 +10,7 @@ import AlertTemplate from "react-alert-template-basic";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { loadUser } from "./store/actions/authActions";
+import { tickStream } from "./store/actions/tickActions";
 
 // Styles
 // import style from "./App.module.css";
@@ -39,6 +40,7 @@ const options = {
 class App extends Component {
   componentDidMount(){
     store.dispatch(loadUser());
+    store.dispatch(tickStream());
   }
 
   render() {

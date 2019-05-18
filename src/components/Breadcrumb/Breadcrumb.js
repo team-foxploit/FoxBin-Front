@@ -7,11 +7,33 @@ export class Breadcrumb extends Component {
     lastslug: null
   };
 
+  componentWillReceiveProps() {
+    console.log(window.location);
+    const slug = window.location.pathname.split("/");
+    slug.shift();
+    let last_slug = slug.pop();
+    if (last_slug === slug) {
+      console.log("same");
+    }
+    this.setState(
+      {
+        firstslugs: slug,
+        lastslug: last_slug
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
+  }
+
   componentDidMount() {
     console.log(window.location);
     const slug = window.location.pathname.split("/");
     slug.shift();
-    const last_slug = slug.pop();
+    let last_slug = slug.pop();
+    if (last_slug === slug[0]) {
+      console.log("same");
+    }
     this.setState(
       {
         firstslugs: slug,

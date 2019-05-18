@@ -19,8 +19,7 @@ class PlotApp extends Component {
         }
       ],
       layout: {
-        width: 800,
-        height: 600,
+        autosize: true,
         title: "Forex chart : EUR/USD",
         datarevision: 0
       },
@@ -32,7 +31,7 @@ class PlotApp extends Component {
 
   componentDidMount() {
     const subscribe = {
-      ticks_history: "frxEURUSD",
+      ticks_history: "R_50",
       end: "latest",
       start: 1,
       style: "ticks",
@@ -40,15 +39,15 @@ class PlotApp extends Component {
       adjust_start_time: 1,
       count: 5
     };
-
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
-
     this.ws.onopen = () => {
       this.ws.send(JSON.stringify(subscribe));
+      console.log("jdvd");
     };
 
     this.ws.onmessage = e => {
       const value = JSON.parse(e.data);
+      console.log(value);
       var prevData = this.state.data[0];
       var prevLayout = this.state.layout;
       if (value.msg_type === "history") {
