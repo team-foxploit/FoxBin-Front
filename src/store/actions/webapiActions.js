@@ -19,6 +19,8 @@ export const loadTokens = () => (dispatch, getState) => {
         type: actionTypes.TOKEN_FETCH_SUCCESS,
         payload: res.data
       });
+      // console.log(getState().webapi);
+      dispatch(validateToken(getState().webapi.activeToken));
     })
     .catch(error => {
       console.log(error);
@@ -40,7 +42,6 @@ export const addToken = (token) => (dispatch, getState) => {
   axios
     .post("https://foxbin-api.herokuapp.com/api/token/", token, headerConfig(getState))
     .then(res => {
-      var tokens = getState().token.tokens;
       var tokens = getState().webapi.tokens;
       var newToken = {
         id: res.data.id,
@@ -80,7 +81,6 @@ export const addToken = (token) => (dispatch, getState) => {
 // Validate token
 export const validateToken = (token) => (dispatch) => {
   var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
-  console.log(token);
   dispatch({
     type: actionTypes.TOKEN_VALIDATION_START
   });
@@ -124,6 +124,7 @@ export const validateToken = (token) => (dispatch) => {
           userDetails
         }
       });
+      dispatch(fetchLoginHistory());
       dispatch({
         type: actionTypes.CREATE_MESSAGE,
         payload: {
@@ -143,7 +144,6 @@ export const fetchLoginHistory = () => (dispatch, getState) => {
   dispatch({
     type: actionTypes.LOGIN_HISTORY_FETCH_START
   });
-
   ws.onopen = (evt) => {
     ws.send(
       JSON.stringify({
@@ -184,7 +184,7 @@ export const fetchLoginHistory = () => (dispatch, getState) => {
         type: actionTypes.LOGIN_HISTORY_FETCH_SUCCESS,
         payload: data.login_history
       });
-      // ws.close();
+      ws.close();
     }
   };
 }
