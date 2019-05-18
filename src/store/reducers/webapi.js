@@ -93,7 +93,7 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 isValidated: false,
-                activeToken: null,
+                activeToken: "",
                 isValidating: false
             }
 

@@ -5,9 +5,9 @@ import { fetchLoginHistory } from '../../../store/actions/webapiActions';
 
 class History extends Component {
 
-    componentDidMount(){
-      if(this.props.activeToken){
-        this.props.fetchLoginHistory(this.props.activeToken);
+    componentWillReceiveProps(nextProps){
+      if(nextProps.activeToken){
+        nextProps.fetchLoginHistory();
       }
     }
 
