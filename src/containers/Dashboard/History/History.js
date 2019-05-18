@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchLoginHistory } from '../../../store/actions/webapiActions';
 
 class History extends Component {
 
-    componentWillReceiveProps(nextProps){
-      if(nextProps.activeToken){
-        nextProps.fetchLoginHistory();
-      }
+  static propTypes = {
+    isValidated: propTypes.bool,
+    fetchLoginHistory: propTypes.func.isRequired
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.isValidated){
+      nextProps.fetchLoginHistory();
     }
-
+  }
     render(){
       return (
         <div className="text-center">
@@ -155,7 +159,7 @@ class History extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    activeToken: state.webapi.activeToken
+    isValidated: state.webapi.isValidated
   }
 }
 

@@ -86,6 +86,7 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 isValidated: true,
+                isValidating: false,
                 activeToken: action.payload.token,
                 userDetails: action.payload.userDetails
             }
