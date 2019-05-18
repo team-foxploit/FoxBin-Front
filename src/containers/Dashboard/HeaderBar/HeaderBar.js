@@ -11,7 +11,7 @@ const HeaderBar = props => {
         <div className="row bg-dark mb-0 d-flex justify-content-between">
             <nav className="nav">
                 <NavLink className="nav-link bg-info" to="#" onClick={props.constrolSidebar}><i className="material-icons sidebar-toggler">menu</i></NavLink>
-                {props.activeToken ? 
+                {props.isValidated ? 
                   <NavLink className="nav-link text-success" to="/dashboard/integra">Automation is Enabled</NavLink>
                     :
                   <NavLink className="nav-link text-danger" to="/dashboard/integra">Automation is disabled. Please authorize with binary.com using your credentials.</NavLink>
@@ -31,13 +31,13 @@ const HeaderBar = props => {
 const mapStateToProps = state => {
   return {
     username: state.auth.user.username,
-    activeToken: state.webapi.activeToken,
+    isValidated: state.webapi.isValidated,
   };
 };
 
 HeaderBar.propTypes = {
   username: propTypes.string.isRequired,
-  activeToken: propTypes.string,
+  isValidated: propTypes.bool,
   logout: propTypes.func.isRequired,
   controlSidebar: propTypes.func
 };
