@@ -41,6 +41,7 @@ export const addToken = (token) => (dispatch, getState) => {
     .post("https://foxbin-api.herokuapp.com/api/token/", token, headerConfig(getState))
     .then(res => {
       var tokens = getState().token.tokens;
+      var tokens = getState().webapi.tokens;
       var newToken = {
         id: res.data.id,
         token:  res.data.token,
