@@ -2,6 +2,7 @@ import axios from "axios";
 
 import * as actionTypes from "./actionTypes";
 import { headerConfig } from "./config";
+import { loadTokens } from "./webapiActions";
 
 // LOGIN USER
 export const login = user => dispatch => {
@@ -100,6 +101,7 @@ export const loadUser = () => (dispatch, getState) => {
   axios
     .get("https://foxbin-api.herokuapp.com/api/auth/user", headerConfig(getState))
     .then(res => {
+      dispatch(loadTokens());
       dispatch({
         type: actionTypes.USER_LOADED,
         payload: res.data
