@@ -8,29 +8,29 @@ class Alert extends Component {
     if (error !== prevProps.error) {
       if(error.error){
         if (error.error.non_field_errors) {
-          this.props.alert.error(error.error.non_field_errors);
+          alert.error(error.error.non_field_errors);
         }
         if(error.error.invalidTokenError){
-          this.props.alert.error(error.error.invalidTokenError);
+          alert.error(error.error.invalidTokenError);
         }
         if (error.error.formError) {
-          this.props.alert.error(error.error.formError);
+          alert.error(error.error.formError);
         }
       }
       
       /* TODO: Check for the first time
       * this is for the authentication details were not provided error.
       if (error.error.detail) {
-         this.props.alert.error(error.error.detail);
+         alert.error(error.error.detail);
       }*/
       
     }
 
     if (message !== prevProps.message) {
-      //   if(message.loadTodos){
-      //     this.props.alert.success(message.loadTodos);
-      //   }
-      alert.success(message);
+        if(message.tokenValidated){
+          alert.success(message.tokenValidated);
+        }
+      // alert.success(message);
     }
   }
 

@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const History = (props) => {
-    return (
+import { fetchLoginHistory } from '../../../store/actions/webapiActions';
+
+class History extends Component {
+
+    componentDidMount(){
+      if(this.props.activeToken){
+        this.props.fetchLoginHistory(this.props.activeToken);
+      }
+    }
+
+    render(){
+      return (
         <div className="text-center">
             <h4 className="mb-4">This is based on both the platforms binary.com and foxbinary</h4>
             <table className="table table-bordered table-hover">
@@ -138,7 +149,14 @@ const History = (props) => {
             </table>
 
         </div>
-    )
+      )
+    }
 }
 
-export default History
+const mapStateToProps = (state) => {
+  return {
+    activeToken: state.webapi.activeToken
+  }
+}
+
+export default connect(mapStateToProps, { fetchLoginHistory })(History);
