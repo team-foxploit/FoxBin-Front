@@ -2,10 +2,14 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     tokens: [],
+    activeToken: "",
     isLoading: false,
     isValidating: false,
     isValidated: null,
-    validToken: null,
+    history: {
+        isLoading: false,
+        loginHistory: []
+    },
     userDetails: null
 }
 
@@ -22,6 +26,7 @@ export default function (state=initialState, action) {
         case actionTypes.TOKEN_FETCH_SUCCESS:
             var tokens = [];
             var token = {};
+            var activeToken;
             if(action.payload.length > 0){
                 for(let i = action.payload.length - 1 ; i >= 0 ; i--) {
                     token = {
@@ -30,6 +35,7 @@ export default function (state=initialState, action) {
                         created_at: action.payload[i].created_at
                     }
                     if(i === action.payload.length - 1){
+                        activeToken = token.token;
                         token = {
                             ...token,
                             active: true,
@@ -46,6 +52,7 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 tokens: tokens,
+                activeToken: activeToken,
                 isLoading: false
             };
         case actionTypes.TOKEN_FETCH_FAIL:
@@ -79,15 +86,42 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 isValidated: true,
-                validToken: action.payload.token,
+                activeToken: action.payload.token,
                 userDetails: action.payload.userDetails
             }
-            case actionTypes.TOKEN_VALIDATION_FAIL:
+        case actionTypes.TOKEN_VALIDATION_FAIL:
             return {
                 ...state,
                 isValidated: false,
-                validToken: null,
+                activeToken: null,
                 isValidating: false
+            }
+
+        // Fetch Login History [Binary.com]
+        case actionTypes.LOGIN_HISTORY_FETCH_START:
+            return {
+                ...state,
+                history: {
+                    ...state.history,
+                    isLoading: true
+                }
+            }
+        case actionTypes.LOGIN_HISTORY_FETCH_SUCCESS:
+            return {
+                ...state,
+                history: {
+                    loginHistory: action.payload,
+                    isLoading: false
+                }
+            }
+        case actionTypes.LOGIN_HISTORY_FETCH_FAIL:
+            return {
+                ...state,
+                history: {
+                    loginHistory: [],
+                    error: "Login History Failed! Check again later...",
+                    isLoading: false
+                }
             }
         default:
             return state;
