@@ -11,12 +11,12 @@ import IconSideBar from "./Sidebar/IconSideBar";
 // import Graph from "../../components/Graph/Graph";
 // import GoogleGraph from "../../components/Graph/GoogleGraph";
 // import Plot from "../../components/Plot/Plot";
-import MiniGraph from "../../components/MiniGraph/MiniGraph";
 import Account from "./Account/Account";
 import HeaderBar from "./HeaderBar/HeaderBar";
 import History from "./History/History";
 import Integration from "./Integration/Integration";
 import Main from "./Main/Main";
+import HeaderDashBoard from "./HeaderDashBoard/HeaderDashBoard";
 
 class Dashboard extends Component {
   state = {
@@ -58,7 +58,7 @@ class Dashboard extends Component {
             style={{ minWidth: "298px", minHeight: "480px" }}
           >
             {/* <Breadcrumb /> */}
-            <MiniGraph />
+            <HeaderDashBoard />
             {/* <button className="btn btn-primary" type="button" onClick={this.handleClick} >
                   <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     Loading...
