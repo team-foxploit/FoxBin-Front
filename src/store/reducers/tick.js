@@ -9,7 +9,14 @@ const initialState = {
             isLoaded: null,
         }
     ],
+    baseCurrancy: "USD",
+    exchangeRates: {
+        isLoading: false,
+        isUpdated: false,
+    },
     globalTicks: [],
+    sparkLineTicks: [],
+    showSparkLine: false,
     subscribed: false,
     showGraph: false,
     isLoading: false
@@ -17,7 +24,10 @@ const initialState = {
 
 export default function (state=initialState, action, getState) {
     let globalTicks;
+    let sparkLineTicks;
     switch (action.type) {
+        
+        // GLOBALTICK 
         case actionTypes.TICK_UPDATE_START:
             if (action.payload) {
                 let ticks = state.ticks;
@@ -29,7 +39,6 @@ export default function (state=initialState, action, getState) {
                     isLoaded: false,
                 }
                 ticks.push(newComponent);
-                console.log(ticks);
                 return {
                     ...state,
                     ticks: ticks,
@@ -42,8 +51,6 @@ export default function (state=initialState, action, getState) {
                 }
             }
         case actionTypes.TICK_HISTORY_SUCCESS:
-
-            console.log(action.payload);
             return {
                 ...state,
                 globalTicks: action.payload,
@@ -53,9 +60,7 @@ export default function (state=initialState, action, getState) {
         case actionTypes.TICK_UPDATE_SUCCESS:
             const newTick = action.payload;
             globalTicks = state.globalTicks;
-            console.log(globalTicks);
             globalTicks.push(newTick);
-            console.log(globalTicks);
             return {
                 ...state,
                 globalTicks: globalTicks,
@@ -66,8 +71,55 @@ export default function (state=initialState, action, getState) {
             return {
                 ...state,
                 showGraph: false,
+                showSparkLine: false,
                 subscribed: false,
                 isLoading: false,
+            }
+        
+        // SPARKLINE
+        case actionTypes.SPARKLINES_TICK_HISTORY_SUCCESS:
+            return {
+                ...state,
+                showSparkLine: true,
+                sparkLineTicks: action.payload
+            }
+        case actionTypes.SPARKLINES_TICK_UPDATE_SUCCESS:
+            const newSparkLineTick = action.payload;
+            sparkLineTicks = state.sparkLineTicks;
+            sparkLineTicks.push(newSparkLineTick);
+            return {
+                ...state,
+                showSparkLine: true,
+                sparkLineTicks: sparkLineTicks
+            }
+
+        // FOREIGN EXCHANGE RATE
+        case actionTypes.EXCHANGE_RATE_RETRIEVE_START:
+            return{
+                ...state,
+                exchangeRates: {
+                    ...state.exchangeRates,
+                    isLoading: true,
+                }   
+            }
+        case actionTypes.EXCHANGE_RATE_RETRIEVE_SUCCESS:
+            return {
+                ...state,
+                baseCurrancy: action.payload.base_currency,
+                exchangeRates: {
+                    ...state.exchangeRates,
+                    isLoading: false,
+                    isUpdated: false,
+                    ...action.payload
+                }
+            }
+        case actionTypes.EXCHANGE_RATE_RETRIEVE_FAIL:
+            return {
+                ...state,
+                exchangeRates: {
+                    ...state.exchangeRates,
+                    isLoading: false
+                }
             }
         default:
             return state;
