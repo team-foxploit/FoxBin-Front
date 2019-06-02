@@ -8,9 +8,7 @@ class ItemList extends Component {
     }
 
     handleChange(event) {
-        this.setState({item: event.target.value}, () => {
-            console.log(this.state);
-        });
+        this.setState({item: event.target.value});
     }
 
     render(){

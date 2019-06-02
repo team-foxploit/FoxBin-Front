@@ -38,13 +38,12 @@ const options = {
 };
 
 class App extends Component {
-  componentDidMount(){
-    store.dispatch(loadUser());
-    store.dispatch(tickStream());
-    store.dispatch(retrieveExchangeRates());
-  }
-
   render() {
+    if (store.getState().auth.foxToken) {
+      store.dispatch(loadUser());
+      store.dispatch(tickStream());
+      store.dispatch(retrieveExchangeRates());
+    }
     return (
       <Provider store={store}>
         <AlertProvider template={AlertTemplate} {...options}>

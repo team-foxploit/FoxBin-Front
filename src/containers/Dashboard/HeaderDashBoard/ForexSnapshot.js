@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ItemList from './ItemList';
 
 const ForexSnapshot = (props) => {
-    console.log(props);
     if(props.exchangeRates.isLoading){
         return (
             <div className="col-md-4">

@@ -8,10 +8,10 @@ const PredictionHistory = () => {
       <thead className="text-info">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Time</th>
-          <th scope="col">Token</th>
-          <th scope="col">Trade result</th>
-          <th scope="col">Success rate</th>
+          <th scope="col">Action</th>
+          <th scope="col">Date</th>
+          <th scope="col">IP Address</th>
+          <th scope="col">Browser Environment</th>
         </tr>
       </thead>
       <tbody>
@@ -53,6 +53,7 @@ const LoginHistory = (item) => {
 
 const History = (props) => {
 
+  console.log(props.history);
   History.propTypes = {
     isValidated: propTypes.bool,
     history: propTypes.object,
