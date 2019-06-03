@@ -136,6 +136,33 @@ class Main extends Component {
             </div>
           </div>
         </div>
+        <div className="row mt-4">
+          <div className="col">
+            <div className="card">
+              <div className="card-header">
+                <h3 className="card-title">Predict now</h3>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <form className="form-inline col">
+                    <label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">Your bid preference</label>
+                    <select className="custom-select my-3 px-3 py-3 mx-3" id="inlineFormCustomSelectPref">
+                      <option value="1">Rise</option>
+                      <option value="2">Fall</option>
+                    </select>
+
+                    <div className="custom-control custom-checkbox my-1 mr-sm-2">
+                      <input type="checkbox" className="custom-control-input" id="customControlInline" />
+                      <label className="custom-control-label" htmlFor="customControlInline">Remember my preference</label>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary my-1">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

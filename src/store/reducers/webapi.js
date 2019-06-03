@@ -7,7 +7,7 @@ const initialState = {
     isValidating: false,
     isValidated: null,
     history: {
-        isLoading: false,
+        isLoading: true,
         loginHistory: []
     },
     userDetails: null
