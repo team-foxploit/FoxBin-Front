@@ -1,75 +1,67 @@
 import React, { Component } from "react";
-import Form from "./Form/Form";
-import BusinessChatImg from '../../assets/business-chart.jpg';
-import style from './Dashboard.module.css';
+import { Switch, Route } from "react-router-dom";
+import propTypes from "prop-types";
+
+import { connect } from "react-redux";
+import { createMessage } from "../../store/actions/messageActions";
+
+import Sidebar from "./Sidebar/Sidebar";
+import IconSideBar from "./Sidebar/IconSideBar";
+// import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+// import Graph from "../../components/Graph/Graph";
+// import GoogleGraph from "../../components/Graph/GoogleGraph";
+// import Plot from "../../components/Plot/Plot";
+import Account from "./Account/Account";
+import HeaderBar from "./HeaderBar/HeaderBar";
+import History from "./History/History";
+import Integration from "./Integration/Integration";
+import Main from "./Main/Main";
+import HeaderDashBoard from "./HeaderDashBoard/HeaderDashBoard";
 
 class Dashboard extends Component {
   state = {
     asset_index: null,
-    symobl_names: null
+    symobl_names: null,
+    url_slug: [],
+    showSidebar: true
   };
 
-  componentDidMount() {
-    var ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=1089");
-    var asset_index = null;
-    var active_symbols = null;
-    ws.onopen = evt => {
-      ws.send(
-        JSON.stringify({
-          asset_index: 1
-        })
-      );
-      ws.send(
-        JSON.stringify({
-          active_symbols: "brief",
-          product_type: "basic"
-        })
-      );
-    };
+  static propTypes = {
+    isAuthenticated: propTypes.bool.isRequired,
+    activeToken: propTypes.string,
+    user: propTypes.object.isRequired,
+    createMessage: propTypes.func.isRequired
+  };
 
-    ws.onmessage = msg => {
-      var data = JSON.parse(msg.data);
-      console.log(data);
-      if (data.asset_index) {
-        asset_index = data.asset_index;
-      }
-      if (data.active_symbols) {
-        active_symbols = data.active_symbols;
-      }
-      this.setState(
-        {
-          asset_index: asset_index,
-          active_symbols: active_symbols
-        },
-        () => {
-          console.log(this.state);
-        }
-      );
-    };
+  controlSidebar = () => {
+    this.setState({
+      showSidebar: !this.state.showSidebar
+    });
+  };
+
+  componentWillReceiveProps(nextProps){
   }
+
 
   render() {
     return (
       <div className="container-fluid">
-        <div className={style.JumbotronMargin}>
-          <div className="jumbotron">
-            <h1 className="display-3">FoxBinary</h1>
-            <p className="lead">
-              Welcome to the Automated Trading Platform where you can trade Binary
-              Options based on our predictions.
-            </p>
-            <hr className="my-4" />
-            <div className="row no-gutters justify-content-md-center">
-              <div className="col-md-4">
-                <img src={BusinessChatImg} alt="business-chart"/>
-              </div>
-              <div className="card">
-                <div className="card-body col-md-10" />
-                  {this.state.asset_index && this.state.active_symbols ? (
-                    <Form data={this.state} />
-                  ) : null}
-              </div>
-            </div>
+        {this.props.isAuthenticated ? (
+          <HeaderBar constrolSidebar={this.controlSidebar} />
+        ) : null}
+        <div className="row d-flex justify-content-between">
+          {this.state.showSidebar ? <Sidebar /> : <IconSideBar />}
+          <div
+            className="col mt-4"
+            style={{ minWidth: "298px", minHeight: "480px" }}
+          >
+            <HeaderDashBoard />
+            <Switch>
+              <Route exact path="/dashboard" component={Main} />
+              <Route exact path="/dashboard/account" component={Account} />
+              <Route exact path="/dashboard/history" component={History} />
+              <Route exact path="/dashboard/integra" component={Integration} />
+            </Switch>
           </div>
         </div>
       </div>
@@ -77,4 +69,21 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    activeToken: state.webapi.activeToken,
+    user: state.auth.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createMessage: msg => dispatch(createMessage(msg))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);
