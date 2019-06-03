@@ -15,14 +15,14 @@ class ItemList extends Component {
         return (
             <form>
                 <div className="form-row align-items-center">
-                    <div className="col-auto my-1">
+                    <div className="col my-1">
                         <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" value={this.state.value} onChange={this.handleChange}>
                             {Object.keys(this.props.items).map(function(key, index) {
                                 return <option key={index} value={key}>{key}</option>;
                             })}
                         </select>
                     </div>
-                    <div className="col-auto my-1 ml-4">
+                    <div className="col my-1 ml-4">
                         {this.props.items[this.state.item]}
                     </div>
                 </div>

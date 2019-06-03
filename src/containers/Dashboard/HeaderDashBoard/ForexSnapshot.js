@@ -21,12 +21,17 @@ const ForexSnapshot = (props) => {
             <div className="col-md-4">
                 <div className="card m-3 p-0">
                     <div className="card-header">
-                        Forex Rates at a glance!
+                        <div className="row">
+                            <div className="col">
+                                Forex Rates at a glance!
+                            </div>
+                            <div className="col">
+                                [*Base currancy: {props.baseCurrancy}]
+                            </div>
+                        </div>
                     </div>
                     <div className="card-body">
                         <small>
-                            *Base currancy: {props.baseCurrancy}
-                            <br/>
                             <span className="text-center">
                                 {props.exchangeRates.date}
                             </span>

@@ -25,7 +25,7 @@ const LoginHistory = (props) => {
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Action</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Date & Time</th>
                     <th scope="col">IP Address</th>
                     <th scope="col">Browser Environment</th>
                     </tr>
@@ -36,7 +36,7 @@ const LoginHistory = (props) => {
                             <tr key={index}>
                                 <th scope="row">{index+1}</th>
                                 <td>{historyItem.action}</td>
-                                <td>{new Date(historyItem.time).toUTCString()}</td>
+                                <td>{historyItem.environment.split("IP=")[0]}</td>
                                 <td>{historyItem.environment.split("IP=")[1].split(" ")[0]}</td>
                                 <EnvItem env={historyItem.environment}/>
                             </tr>
