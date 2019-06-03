@@ -5,7 +5,7 @@ import LoginHistory from './LoginHistory';
 const History = (props) => {
 
   return (
-    <div className="text-center">
+    <div className="col text-center">
       <div className="row">
         <div className="col">
           <h4 className="mb-4">This is based on both the platforms binary.com and foxbinary</h4>

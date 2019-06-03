@@ -40,10 +40,8 @@ class Dashboard extends Component {
   };
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.activeToken.length > 0){
-
-    }
   }
+
 
   render() {
     return (
@@ -57,13 +55,7 @@ class Dashboard extends Component {
             className="col mt-4"
             style={{ minWidth: "298px", minHeight: "480px" }}
           >
-            {/* <Breadcrumb /> */}
             <HeaderDashBoard />
-            {/* <button className="btn btn-primary" type="button" onClick={this.handleClick} >
-                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                    <a href="https://oauth.binary.com/oauth2/authorize?app_id=16334">Login</a>
-                </button> */}
             <Switch>
               <Route exact path="/dashboard" component={Main} />
               <Route exact path="/dashboard/account" component={Account} />

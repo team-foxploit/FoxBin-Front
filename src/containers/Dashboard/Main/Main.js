@@ -117,7 +117,7 @@ class Main extends Component {
   
   render() {
     return (
-      <div className="app">
+      <div className="col">
         <div className="row">
           <div className="col-md-12">
             <div className="card">

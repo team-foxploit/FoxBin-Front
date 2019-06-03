@@ -20,18 +20,12 @@ class Integration extends Component {
   static propTypes = {
     isAuthenticated: propTypes.bool.isRequired,
     binaryAPI: propTypes.object.isRequired,
-    // loadTokens: propTypes.func.isRequired,
-    // fetchLoginHistory: propTypes.func.isRequired,
     validateToken: propTypes.func.isRequired,
     addToken: propTypes.func.isRequired,
     alertZeroTokenError: propTypes.func.isRequired
   }
 
   componentDidMount(){
-    // if(this.props.isAuthenticated && !this.props.binaryAPI.isLoading){
-    //   this.props.loadTokens();
-    //   // this.props.fetchLoginHistory(this.props.binaryAPI.activeToken);
-    // }
     var params = window.location.search.split("=");
     if(params.length > 1){
       const token = params[2].split("&")[0];
@@ -42,12 +36,9 @@ class Integration extends Component {
     }
   }
   
-  componentDidUpdate(){
-    console.log(this.props);
-    // if(this.props.binaryAPI.isValidated && (this.props.binaryAPI.history.loginHistory.length === 0)){
-    //     this.props.fetchLoginHistory(this.props.binaryAPI.activeToken);
-    // }
-  }
+  // componentDidUpdate(){
+  //   console.log(this.props);
+  // }
 
     handleOAuth = (e) => {
       window.location = "https://oauth.binary.com/oauth2/authorize?app_id=17015";
@@ -89,7 +80,7 @@ class Integration extends Component {
     render() {
     if (!this.props.binaryAPI.isLoading) {
         return (
-          <div className="container my-3">
+          <div className="col">
             <div className="row mb-3">
               <div className="col">
               <div className="card text-left">
