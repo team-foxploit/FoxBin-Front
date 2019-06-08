@@ -18,7 +18,7 @@ export const tickStream = () => (dispatch, getState) => {
         style: "ticks",
         subscribe: 1,
         adjust_start_time: 1,
-        count: 100
+        count: 200
     };
 
     ws.onopen = (evt) => {
