@@ -1,31 +1,22 @@
 import React from 'react';
-import MiniGraph from '../../../components/MiniGraph/MiniGraph';
+import MiniGraph from './MiniGraph/MiniGraph';
+import AccountDetail from './AccountDetail/AccountDetail';
 import ForexSnapshot from './ForexSnapshot';
 
 const HeaderDashBoard = () => {
   return (
-    <div className="row mb-3">
-      <div className="col-md-4">
-          <div className="card m-3 p-0">
-            <div className="card-header">
-              Quick overview
-            </div>
-              <div className="card-body">
-                <MiniGraph />
-              </div>
+    <div className="row mb-3 mx-3 card-group">
+        <div className="card m-3">
+          <div className="card-header">
+            <i className="material-icons text-info">swap_calls</i>
+            <span>Quick overview</span>
           </div>
-      </div>
+            <div className="card-body">
+              <MiniGraph />
+            </div>
+        </div>
       <ForexSnapshot />
-      <div className="col-md-4">
-          <div className="card m-3 p-0">
-            <div className="card-header">
-              Quick overview
-            </div>
-              <div className="card-body">
-                <MiniGraph />
-              </div>
-          </div>
-      </div>
+      <AccountDetail />
     </div>
   )
 
