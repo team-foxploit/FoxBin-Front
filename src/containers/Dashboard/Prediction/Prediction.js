@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
+import { getFormattedTime } from "../../../components/Graph/GraphFunctions";
 
 import Chart from "react-apexcharts";
 import ApexCharts from "apexcharts";
@@ -71,22 +72,45 @@ class Integration extends Component {
           },
           // range: 777600000,
         },
-        yaxis: {
-          labels: {
-            offsetX: 2,
-            offsetY: 0
-          },
-          title: {
-            text: 'Volatility Indices',
-            align: 'left'
-          },
-          axisBorder: {
-            show: true
-          },
-          tooltip: {
-            enabled: true
-          }
-        },
+        yaxis: [
+            {
+                seriesName: 'Volatility Indices Predicted',
+                labels: {
+                    offsetX: 2,
+                    offsetY: 0
+                },
+                title: {
+                    text: 'Volatility Indices',
+                    align: 'left'
+                },
+                axisBorder: {
+                    show: true,
+                    color: '#00E396'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            {
+                seriesName: 'Volatility Indices Real Time',
+                opposite: true,
+                labels: {
+                    offsetX: 2,
+                    offsetY: 0
+                },
+                title: {
+                    text: 'Volatility Indices',
+                    align: 'left'
+                },
+                axisBorder: {
+                    show: true,
+                    color: '#00E122'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        ],
         responsive: [
           {
             breakpoint: 1000,
@@ -105,7 +129,7 @@ class Integration extends Component {
       },
       chartSeries: [
         {
-          name: "Volatility Indices",
+          name: "Volatility Indices Predicted",
           type: "line",
           data: []
         }
@@ -140,21 +164,33 @@ class Integration extends Component {
             const results = JSON.parse(msg.data);
             console.log('Message', results);
             let data = [];
-            const startTime = new Date().getTime();
+            // let newMixedSeries = this.state.chartSeries;
+            // console.log(newMixedSeries);
+            // let newSeries = {
+            //     name: "Volatility Indices Real Time",
+            //     type: "line",
+            //     data: this.props.tick.ticks.componentTicks
+            // };
+            // newMixedSeries.push(newSeries);
+            // console.log(newMixedSeries);
+            let startTime = new Date().getTime();
             this.props.showRealTimeGraph();
             let i = 0;
+            // getFormattedTime(parseInt(data.tick.epoch))
             results.forEach(element => {
                 const tempVal = {
-                    x: new Date((startTime + i)*1000),
+                    x: getFormattedTime(parseInt((startTime/1000 + i))),
                     y: element
                 }
                 data.push(tempVal);
                 i = i + 2;
             });
+            console.log(data);
             this.setState({
-                predicted_results: data,
+                // predicted_results: data,
                 isLoading: false,
                 isPredicted: true,
+                // chartSeries: newMixedSeries,
                 isStarted: false
             }, () => {
                 ApexCharts.exec('predictionGraph', 'updateSeries', [{
@@ -168,6 +204,16 @@ class Integration extends Component {
             console.log('Error', error);
         }
     }
+
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.tick.ticks.shouldUpdate){
+    //         ApexCharts.exec('predictionGraph', 'appendSeries', [{
+    //             name: "Volatility Indices Real Time",
+    //             type: "line",
+    //             data: nextProps.tick.ticks.componentTicks
+    //         }], true, true);
+    //     }
+    // }
 
     render() {
         return (
