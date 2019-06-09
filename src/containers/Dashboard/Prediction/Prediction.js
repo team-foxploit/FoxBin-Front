@@ -182,7 +182,6 @@ class Integration extends Component {
             <div className="col">
                 <div className="row mb-3">
                     <div className="col-md-12">
-
                         <div className="card text-left">
                             <div className="card-header">
                                 <h3>Predictions</h3>
@@ -229,6 +228,13 @@ class Integration extends Component {
                                     }
                                 </div>
                             </div>
+                            {this.state.isPredicted ?
+                                <div className="card-footer text-center">
+                                    <button className="btn btn-success">Bid now</button>
+                                </div>
+                                :
+                                null
+                            }
                         </div>
                     </div>
                     
