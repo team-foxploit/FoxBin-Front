@@ -50,7 +50,7 @@ class Integration extends Component {
         },
         title: {
           text: 'Volatility Indices Movement with prediction',
-          align: 'left'
+          align: 'center'
         },
         markers: {
           size: 0,
@@ -141,6 +141,7 @@ class Integration extends Component {
             console.log('Message', results);
             let data = [];
             const startTime = new Date().getTime();
+            this.props.showRealTimeGraph();
             let i = 0;
             results.forEach(element => {
                 const tempVal = {
@@ -149,11 +150,9 @@ class Integration extends Component {
                 }
                 data.push(tempVal);
                 i = i + 2;
-                console.log(i);
             });
-            console.log(data);
             this.setState({
-                predicted_results: results,
+                predicted_results: data,
                 isLoading: false,
                 isPredicted: true,
                 isStarted: false
@@ -232,7 +231,9 @@ const mapDispatchToProps = dispatch => {
         startPredict: () => dispatch({
             type: actionTypes.PREDICTION_START
         }),
-
+        showRealTimeGraph: () => dispatch({
+            type: actionTypes.COMPONENT_TICK_UPDATE_START
+        })
     }
 };
 
