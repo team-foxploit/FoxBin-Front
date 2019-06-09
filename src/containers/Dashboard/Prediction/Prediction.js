@@ -16,17 +16,97 @@ class Integration extends Component {
       isStarted: false,
       isPredicted: false,
       isLoading: false,
-      options: {
+      chartOptions: {
         chart: {
-          id: "predictionGraph"
+          id: 'predictionGraph',
+          width: "100%",
+          height: 380,
+          stacked: false,
+          zoom: {
+            type: 'x',
+            enabled: true
+          },
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            dynamicAnimation: {
+              enabled: true,
+              speed: 500
+            },
+            animateGradually: {
+              enabled: true,
+              delay: 150
+          },
+          },
+          toolbar: {
+            show: true
+          }
+        },
+        plotOptions: {
+          line: {
+            lineWidth: "1",
+            endingShape: "arrow"
+          }
+        },
+        title: {
+          text: 'Volatility Indices Movement with prediction',
+          align: 'left'
+        },
+        markers: {
+          size: 0,
+          strokeWidth: 3,
+          fillOpacity: 0,
+          strokeOpacity: 0,
+          hover: {
+            size: 5
+          }
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994]
-        }
+          type: 'datetime',
+          axisBorder: {
+            show: true
+          },
+          title: {
+            text: 'Time',
+          },
+          // range: 777600000,
+        },
+        yaxis: {
+          labels: {
+            offsetX: 2,
+            offsetY: 0
+          },
+          title: {
+            text: 'Volatility Indices',
+            align: 'left'
+          },
+          axisBorder: {
+            show: true
+          },
+          tooltip: {
+            enabled: true
+          }
+        },
+        responsive: [
+          {
+            breakpoint: 1000,
+            options: {
+              plotOptions: {
+                bar: {
+                  horizontal: false
+                }
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
       },
-      series: [
+      chartSeries: [
         {
-          name: 'Volatility Indices',
+          name: "Volatility Indices",
+          type: "line",
           data: []
         }
       ]
@@ -59,6 +139,19 @@ class Integration extends Component {
         ws.onmessage = (msg) => {
             const results = JSON.parse(msg.data);
             console.log('Message', results);
+            let data = [];
+            const startTime = new Date().getTime();
+            let i = 0;
+            results.forEach(element => {
+                const tempVal = {
+                    x: new Date((startTime + i)*1000),
+                    y: element
+                }
+                data.push(tempVal);
+                i = i + 2;
+                console.log(i);
+            });
+            console.log(data);
             this.setState({
                 predicted_results: results,
                 isLoading: false,
@@ -66,7 +159,7 @@ class Integration extends Component {
                 isStarted: false
             }, () => {
                 ApexCharts.exec('predictionGraph', 'updateSeries', [{
-                    data: results
+                    data: data
                 }], true, true);
                 console.log(this.state);
             });
@@ -105,8 +198,8 @@ class Integration extends Component {
                                 {this.state.isPredicted ?
                                     <div className="col-md-12 mixed-chart">
                                         <Chart
-                                            options={this.state.options}
-                                            series={this.state.series}
+                                            options={this.state.chartOptions}
+                                            series={this.state.chartSeries}
                                             type="line"
                                         />
                                     </div>
