@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 
 import { connect } from 'react-redux';
-import { predict } from '../../../store/actions/predictionActions';
+import * as actionTypes from '../../../store/actions/actionTypes';
 
 import { WhisperSpinner } from "react-spinners-kit";
 
 class Integration extends Component {
 
   state = {
-      
+      predicted_results: []
   }
 
   static propTypes = {
@@ -26,7 +26,27 @@ class Integration extends Component {
 
     handlePredictionClick = (event) => {
         event.preventDefault();
-        predict();
+        let ws = new WebSocket('ws://localhost:8000/ml/');
+        console.log(ws);
+        ws.onopen = (evt) => {
+            console.log('Open');
+            this.props.startPredict();
+            ws.send(JSON.stringify({test: "Prediction"}));
+        }
+
+        ws.onmessage = (msg) => {
+            const results = JSON.parse(msg.data);
+            console.log('Message', results);
+            this.setState({
+                predicted_results: results
+            }, () => {
+                console.log(this.state);
+            });
+        }
+
+        ws.onerror = (error) => {
+            console.log('Error', error);
+        }
     }
 
     render() {
@@ -64,6 +84,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        startPredict: () => dispatch({
+            type: actionTypes.PREDICTION_START
+        }),
+
     }
 };
 
