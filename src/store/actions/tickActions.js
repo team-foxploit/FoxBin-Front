@@ -81,6 +81,12 @@ export const tickStream = () => (dispatch, getState) => {
                 type: actionTypes.SPARKLINES_TICK_UPDATE_SUCCESS,
                 payload: data.tick.quote
             });
+            if(getState().tick.ticks.shouldUpdate){
+                dispatch({
+                    type: actionTypes.COMPONENT_TICK_UPDATE,
+                    payload: tick
+                });
+            }
         }
         // ws.close();
     }

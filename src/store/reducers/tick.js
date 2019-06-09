@@ -1,14 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    ticks: [
-        {
-            component: null,
-            ticks: [],
-            isLoading: false,
-            isLoaded: null,
-        }
-    ],
+    ticks: {
+            componentStart: false,
+            componentTicks: [],
+            shouldUpdate: false
+    },
     baseCurrancy: "USD",
     exchangeRates: {
         isLoading: false,
@@ -83,7 +80,30 @@ export default function (state=initialState, action, getState) {
                 subscribed: false,
                 isLoading: false,
             }
-        
+        case actionTypes.COMPONENT_TICK_UPDATE_START:
+            return {
+                ...state,
+                ticks: {
+                    ...state.ticks,
+                    componentStart: true,
+                    shouldUpdate: true,
+                }
+            }
+        case actionTypes.COMPONENT_TICK_UPDATE:
+            const newVal = action.payload;
+            var componentTicks = state.ticks.componentTicks;
+            if(componentTicks.length > 300){
+                componentTicks.shift();
+            }else{
+                componentTicks.push(newVal);
+            }
+            return {
+                ...state,
+                ticks: {
+                    ...state.ticks,
+                    componentTicks: componentTicks,
+                }
+            }
         // SPARKLINE
         case actionTypes.SPARKLINES_TICK_HISTORY_SUCCESS:
             return {
