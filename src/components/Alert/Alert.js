@@ -13,6 +13,9 @@ class Alert extends Component {
         if(error.error.invalidTokenError){
           alert.error(error.error.invalidTokenError);
         }
+        if(error.error.inputValidationFailedError){
+          alert.error(error.error.inputValidationFailedError);
+        }
         if (error.error.formError) {
           alert.error(error.error.formError);
         }
