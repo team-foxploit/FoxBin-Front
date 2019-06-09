@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
+import Graph from "../../../components/Graph/Graph";
 import { getFormattedTime } from "../../../components/Graph/GraphFunctions";
 
 import Chart from "react-apexcharts";
@@ -20,8 +21,8 @@ class Integration extends Component {
       chartOptions: {
         chart: {
           id: 'predictionGraph',
-          width: "100%",
-          height: 380,
+          width: 100,
+          height: 100,
           stacked: false,
           zoom: {
             type: 'x',
@@ -50,8 +51,8 @@ class Integration extends Component {
           }
         },
         title: {
-          text: 'Volatility Indices Movement with prediction',
-          align: 'center'
+          text: 'Predictions for Volatility Indices',
+          align: 'left'
         },
         markers: {
           size: 0,
@@ -70,47 +71,25 @@ class Integration extends Component {
           title: {
             text: 'Time',
           },
-          // range: 777600000,
         },
-        yaxis: [
-            {
-                seriesName: 'Volatility Indices Predicted',
-                labels: {
-                    offsetX: 2,
-                    offsetY: 0
-                },
-                title: {
-                    text: 'Volatility Indices',
-                    align: 'left'
-                },
-                axisBorder: {
-                    show: true,
-                    color: '#00E396'
-                },
-                tooltip: {
-                    enabled: true
-                }
+        yaxis: {
+            seriesName: 'Volatility Indices Predicted',
+            labels: {
+                offsetX: 2,
+                offsetY: 0
             },
-            {
-                seriesName: 'Volatility Indices Real Time',
-                opposite: true,
-                labels: {
-                    offsetX: 2,
-                    offsetY: 0
-                },
-                title: {
-                    text: 'Volatility Indices',
-                    align: 'left'
-                },
-                axisBorder: {
-                    show: true,
-                    color: '#00E122'
-                },
-                tooltip: {
-                    enabled: true
-                }
+            title: {
+                text: 'Volatility Indices',
+                align: 'left'
+            },
+            axisBorder: {
+                show: true,
+                color: '#00E396'
+            },
+            tooltip: {
+                enabled: true
             }
-        ],
+        },
         responsive: [
           {
             breakpoint: 1000,
@@ -164,19 +143,9 @@ class Integration extends Component {
             const results = JSON.parse(msg.data);
             console.log('Message', results);
             let data = [];
-            // let newMixedSeries = this.state.chartSeries;
-            // console.log(newMixedSeries);
-            // let newSeries = {
-            //     name: "Volatility Indices Real Time",
-            //     type: "line",
-            //     data: this.props.tick.ticks.componentTicks
-            // };
-            // newMixedSeries.push(newSeries);
-            // console.log(newMixedSeries);
             let startTime = new Date().getTime();
             this.props.showRealTimeGraph();
             let i = 0;
-            // getFormattedTime(parseInt(data.tick.epoch))
             results.forEach(element => {
                 const tempVal = {
                     x: getFormattedTime(parseInt((startTime/1000 + i))),
@@ -187,16 +156,14 @@ class Integration extends Component {
             });
             console.log(data);
             this.setState({
-                // predicted_results: data,
+                predicted_results: data,
                 isLoading: false,
                 isPredicted: true,
-                // chartSeries: newMixedSeries,
                 isStarted: false
             }, () => {
                 ApexCharts.exec('predictionGraph', 'updateSeries', [{
                     data: data
                 }], true, true);
-                console.log(this.state);
             });
         }
 
@@ -205,24 +172,24 @@ class Integration extends Component {
         }
     }
 
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.tick.ticks.shouldUpdate){
-    //         ApexCharts.exec('predictionGraph', 'appendSeries', [{
-    //             name: "Volatility Indices Real Time",
-    //             type: "line",
-    //             data: nextProps.tick.ticks.componentTicks
-    //         }], true, true);
-    //     }
-    // }
+    componentWillReceiveProps(nextProps){
+        // if(nextProps.tick.ticks.shouldUpdate){
+        //     console.log('show');
+        //     ApexCharts.exec('predictionGraph', 'updateSeries', [{
+        //         data: nextProps.tick.ticks.componentTicks
+        //     }], true, true);
+        // }
+    }
 
     render() {
         return (
             <div className="col">
                 <div className="row mb-3">
-                    <div className="col">
+                    <div className="col-md-12">
+
                         <div className="card text-left">
                             <div className="card-header">
-                                <h4>Predictions</h4>
+                                <h3>Predictions</h3>
                             </div>
                             <div className="card-body">
                                 <h4>Start your predictions...</h4>
@@ -240,24 +207,35 @@ class Integration extends Component {
                                     :
                                     null
                                 }
-                                {this.state.isPredicted ?
-                                    <div className="col-md-12 mixed-chart">
-                                        <Chart
-                                            options={this.state.chartOptions}
-                                            series={this.state.chartSeries}
-                                            type="line"
-                                        />
-                                    </div>
-                                    :
-                                    null
-                                }
-
-                            </div>
-                            <div className="card-footer">
-
+                                <div className="row m-3 card-group">
+                                    {this.state.isPredicted ?
+                                            <div className="card m-1">
+                                                <div className="card-header">
+                                                    <h4>Prediction Graph</h4>
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="col-md-12 mixed-chart">
+                                                        <Chart
+                                                            options={this.state.chartOptions}
+                                                            series={this.state.chartSeries}
+                                                            type="line"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        :
+                                        null
+                                    }
+                                    {this.state.isPredicted ?
+                                        <Graph />
+                                        :
+                                        null
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         )

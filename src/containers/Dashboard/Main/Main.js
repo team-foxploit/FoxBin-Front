@@ -66,7 +66,6 @@ class Main extends Component {
           title: {
             text: 'Time',
           },
-          // range: 777600000,
         },
         yaxis: {
           labels: {
