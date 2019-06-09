@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 // import ItemList from './ItemList';
 
 const AccountDetail = (props) => {
-    console.log(props.userDetails);
     if(props.userDetails){
         return (
             <div className="card m-3">

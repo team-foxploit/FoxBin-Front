@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import Chart from "react-apexcharts";
 import ApexCharts from "apexcharts";
 
@@ -156,7 +157,7 @@ class Main extends Component {
                       <label className="custom-control-label" htmlFor="customControlInline">Remember my preference</label>
                     </div>
 
-                    <button type="submit" className="btn btn-primary my-1">Submit</button>
+                    <NavLink to="dashboard/predictions"><button type="submit" className="btn btn-primary my-1">Submit</button></NavLink>
                   </form>
                 </div>
               </div>
