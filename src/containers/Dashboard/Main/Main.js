@@ -74,7 +74,7 @@ class Main extends Component {
             offsetY: 0
           },
           title: {
-            text: this.props.tick.market.submarket_display_name,
+            text: 'Volatility Indices',
             align: 'left'
           },
           axisBorder: {
