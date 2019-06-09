@@ -12,7 +12,7 @@ export const tickStream = () => (dispatch, getState) => {
     });
 
     const subscribe = {
-        ticks_history: "R_50",
+        ticks_history: "R_100",
         end: "latest",
         start: 1,
         style: "ticks",
