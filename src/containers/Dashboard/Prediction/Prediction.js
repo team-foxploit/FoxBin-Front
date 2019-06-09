@@ -172,13 +172,9 @@ class Integration extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        // if(nextProps.tick.ticks.shouldUpdate){
-        //     console.log('show');
-        //     ApexCharts.exec('predictionGraph', 'updateSeries', [{
-        //         data: nextProps.tick.ticks.componentTicks
-        //     }], true, true);
-        // }
+    componentWillUnmount(){
+        console.log('kdcv');
+        this.props.unShowRealTimeGraph();
     }
 
     render() {
@@ -257,6 +253,9 @@ const mapDispatchToProps = dispatch => {
         }),
         showRealTimeGraph: () => dispatch({
             type: actionTypes.COMPONENT_TICK_UPDATE_START
+        }),
+        unShowRealTimeGraph: () => dispatch({
+            type: actionTypes.COMPONENT_TICK_UPDATE_STOP
         })
     }
 };

@@ -89,19 +89,28 @@ export default function (state=initialState, action, getState) {
                     shouldUpdate: true,
                 }
             }
-        case actionTypes.COMPONENT_TICK_UPDATE:
-            const newVal = action.payload;
-            var componentTicks = state.ticks.componentTicks;
-            if(componentTicks.length > 300){
-                componentTicks.shift();
-            }else{
-                componentTicks.push(newVal);
-            }
+            case actionTypes.COMPONENT_TICK_UPDATE:
+                const newVal = action.payload;
+                var componentTicks = state.ticks.componentTicks;
+                if(componentTicks.length > 300){
+                    componentTicks.shift();
+                }else{
+                    componentTicks.push(newVal);
+                }
+                return {
+                    ...state,
+                    ticks: {
+                        ...state.ticks,
+                        componentTicks: componentTicks,
+                    }
+                }
+        case actionTypes.COMPONENT_TICK_UPDATE_STOP:
             return {
                 ...state,
                 ticks: {
-                    ...state.ticks,
-                    componentTicks: componentTicks,
+                    componentTicks: [],
+                    componentStart: false,
+                    shouldUpdate: false,
                 }
             }
         // SPARKLINE
