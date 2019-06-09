@@ -74,7 +74,7 @@ class Main extends Component {
             offsetY: 0
           },
           title: {
-            text: 'Forex Rate',
+            text: this.props.tick.market.submarket_display_name,
             align: 'left'
           },
           axisBorder: {
@@ -126,6 +126,16 @@ class Main extends Component {
                 <h3 className="card-title">Forex rate graph</h3>
               </div>
               <div className="card-body">
+                <div className="col-md-12 m-3">
+                  {this.props.tick.market ?
+                    <div>
+                      <h5>Market: <span className="text-success">{this.props.tick.market.display_name}</span></h5>
+                      <p>Market display name: <span className="text-secondary">{this.props.tick.market.market_display_name}</span></p>
+                    </div>
+                    :
+                    <span className="text-teal">Loading...</span>
+                  }
+                </div>
                 <div className="col-md-12 mixed-chart">
                   <Chart
                     options={this.state.chartOptions}

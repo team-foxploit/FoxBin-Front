@@ -19,6 +19,10 @@ const initialState = {
     showSparkLine: false,
     subscribed: false,
     showGraph: false,
+    symbol: 'R_100',
+    market: {
+
+    },
     isLoading: false
 }
 
@@ -112,6 +116,21 @@ export default function (state=initialState, action, getState) {
                     isUpdated: false,
                     ...action.payload
                 }
+            }
+        case actionTypes.MARKET_INFO_FETCH_START:
+            return {
+                ...state,
+                market: false
+            }
+        case actionTypes.MARKET_INFO_FETCH_SUCCESS:
+            return {
+                ...state,
+                market: action.payload
+            }
+        case actionTypes.MARKET_INFO_FETCH_FAIL:
+            return {
+                ...state,
+                market: 'failed'
             }
         case actionTypes.EXCHANGE_RATE_RETRIEVE_FAIL:
             return {
