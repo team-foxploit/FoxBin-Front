@@ -64,7 +64,11 @@ export default function (state=initialState, action, getState) {
         case actionTypes.TICK_UPDATE_SUCCESS:
             const newTick = action.payload;
             globalTicks = state.globalTicks;
-            globalTicks.push(newTick);
+            if(globalTicks.length > 300){
+                globalTicks.shift();
+            }else{
+                globalTicks.push(newTick);
+            }
             return {
                 ...state,
                 globalTicks: globalTicks,
