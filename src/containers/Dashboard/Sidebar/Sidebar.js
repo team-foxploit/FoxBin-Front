@@ -27,12 +27,6 @@ const Sidebar = props => {
                     </NavLink>
                 </li>
                 <li className="nav-item shadow">
-                    <NavLink className="nav-link" to="/dashboard/automata">
-                        <i className="material-icons text-info">border_vertical</i>
-                        Automation
-                    </NavLink>
-                </li>
-                <li className="nav-item shadow">
                     <NavLink className="nav-link" to="/dashboard/integra">
                         <i className="material-icons text-danger">code</i>
                         Integrations

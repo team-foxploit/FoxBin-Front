@@ -49,7 +49,10 @@ const LoginHistory = (props) => {
 }
 
 LoginHistory.propTypes = {
-
+    isLoading: propTypes.bool.isRequired,
+    isValidating: propTypes.bool.isRequired,
+    isValidated: propTypes.bool.isRequired,
+    history: propTypes.object
 }
 
 const mapStateToProps = (state) => {

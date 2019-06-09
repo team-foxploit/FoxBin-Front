@@ -3,46 +3,35 @@ import { connect } from 'react-redux';
 import ItemList from './ItemList';
 
 const ForexSnapshot = (props) => {
-    if(props.exchangeRates.isLoading){
+    if(props.exchangeRates.rates){
         return (
-            <div className="col-md-4">
-                <div className="card m-3 p-0">
-                    <div className="card-header">
-                        Forex Rates at a glance!
-                    </div>
-                    <div className="card-body">
-                        Please wait...
-                    </div>
+            <div className="card m-3">
+                <div className="card-header">
+                    <i className="material-icons text-info">assessment</i>
+                    Forex Rates at a glance!
                 </div>
-            </div>
-        );
-    }else if(props.exchangeRates.rates){
-        return (
-            <div className="col-md-4">
-                <div className="card m-3 p-0">
-                    <div className="card-header">
-                        <div className="row">
-                            <div className="col">
-                                Forex Rates at a glance!
-                            </div>
-                            <div className="col">
-                                [*Base currancy: {props.baseCurrancy}]
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-body">
-                        <small>
-                            <span className="text-center">
-                                {props.exchangeRates.date}
-                            </span>
-                        </small>
-                        <ItemList items={props.exchangeRates.rates}/>
-                    </div>
+                <div className="card-body">
+                    <small>
+                        <span className="text-center">
+                            {props.exchangeRates.date}
+                        </span>
+                    </small>
+                    <ItemList items={props.exchangeRates.rates}/>
                 </div>
             </div>
         );
     }else {
-        return null;
+        return (
+            <div className="card m-3">
+                <div className="card-header">
+                    <i className="material-icons text-info">assessment</i>
+                    Forex Rates at a glance!
+                </div>
+                <div className="card-body">
+                    <span className="text-secondary">Loading...</span>
+                </div>
+            </div>
+        );
     }
 }
 

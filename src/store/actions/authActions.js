@@ -16,6 +16,7 @@ export const login = user => dispatch => {
         type: actionTypes.AUTH_SUCCESS,
         payload: res.data
       });
+      dispatch(loadTokens());
     })
     .catch(error => {
       console.log(error);

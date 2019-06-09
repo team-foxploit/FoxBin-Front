@@ -1,14 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    ticks: [
-        {
-            component: null,
-            ticks: [],
-            isLoading: false,
-            isLoaded: null,
-        }
-    ],
+    ticks: {
+            componentStart: false,
+            componentTicks: [],
+            shouldUpdate: false
+    },
     baseCurrancy: "USD",
     exchangeRates: {
         isLoading: false,
@@ -19,6 +16,10 @@ const initialState = {
     showSparkLine: false,
     subscribed: false,
     showGraph: false,
+    symbol: 'R_100',
+    market: {
+
+    },
     isLoading: false
 }
 
@@ -60,7 +61,11 @@ export default function (state=initialState, action, getState) {
         case actionTypes.TICK_UPDATE_SUCCESS:
             const newTick = action.payload;
             globalTicks = state.globalTicks;
-            globalTicks.push(newTick);
+            if(globalTicks.length > 300){
+                globalTicks.shift();
+            }else{
+                globalTicks.push(newTick);
+            }
             return {
                 ...state,
                 globalTicks: globalTicks,
@@ -75,7 +80,39 @@ export default function (state=initialState, action, getState) {
                 subscribed: false,
                 isLoading: false,
             }
-        
+        case actionTypes.COMPONENT_TICK_UPDATE_START:
+            return {
+                ...state,
+                ticks: {
+                    ...state.ticks,
+                    componentStart: true,
+                    shouldUpdate: true,
+                }
+            }
+            case actionTypes.COMPONENT_TICK_UPDATE:
+                const newVal = action.payload;
+                var componentTicks = state.ticks.componentTicks;
+                if(componentTicks.length > 300){
+                    componentTicks.shift();
+                }else{
+                    componentTicks.push(newVal);
+                }
+                return {
+                    ...state,
+                    ticks: {
+                        ...state.ticks,
+                        componentTicks: componentTicks,
+                    }
+                }
+        case actionTypes.COMPONENT_TICK_UPDATE_STOP:
+            return {
+                ...state,
+                ticks: {
+                    componentTicks: [],
+                    componentStart: false,
+                    shouldUpdate: false,
+                }
+            }
         // SPARKLINE
         case actionTypes.SPARKLINES_TICK_HISTORY_SUCCESS:
             return {
@@ -112,6 +149,21 @@ export default function (state=initialState, action, getState) {
                     isUpdated: false,
                     ...action.payload
                 }
+            }
+        case actionTypes.MARKET_INFO_FETCH_START:
+            return {
+                ...state,
+                market: false
+            }
+        case actionTypes.MARKET_INFO_FETCH_SUCCESS:
+            return {
+                ...state,
+                market: action.payload
+            }
+        case actionTypes.MARKET_INFO_FETCH_FAIL:
+            return {
+                ...state,
+                market: 'failed'
             }
         case actionTypes.EXCHANGE_RATE_RETRIEVE_FAIL:
             return {

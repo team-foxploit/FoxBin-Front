@@ -15,6 +15,7 @@ import Account from "./Account/Account";
 import HeaderBar from "./HeaderBar/HeaderBar";
 import History from "./History/History";
 import Integration from "./Integration/Integration";
+import Prediction from "./Prediction/Prediction";
 import Main from "./Main/Main";
 import HeaderDashBoard from "./HeaderDashBoard/HeaderDashBoard";
 
@@ -40,6 +41,20 @@ class Dashboard extends Component {
   };
 
   componentWillReceiveProps(nextProps){
+    // if(nextProps.activeToken.length > 0){
+    //   let ws = new WebSocket('ws://localhost:8000/ml/');
+      
+    //   ws.onopen = (evt) => {
+    //     console.log('Open');
+    //     ws.send(JSON.stringify(this.props.user));
+    //   }
+    //   ws.onmessage = (msg) => {
+    //     console.log('Message', msg);
+    //   }
+    //   ws.onerror = (error) => {
+    //     console.log('Error', error);
+    //   }
+    // }
   }
 
 
@@ -60,6 +75,7 @@ class Dashboard extends Component {
               <Route exact path="/dashboard" component={Main} />
               <Route exact path="/dashboard/account" component={Account} />
               <Route exact path="/dashboard/history" component={History} />
+              <Route exact path="/dashboard/predictions" component={Prediction} />
               <Route exact path="/dashboard/integra" component={Integration} />
             </Switch>
           </div>
